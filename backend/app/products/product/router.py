@@ -35,10 +35,10 @@ async def get_active_barang(db: DependsDB, skip: int = 0, limit: int = 10):
 async def get_all_barang(
     db: DependsDB, skip: int = 0, limit: int = 10, q: StatusEnum | Literal["all"] = "all"
 ):
-    query = db.query(Barang).offset(skip).limit(limit)
-    if q == "all":
-        return query.all()
-    return query.where(Barang.status == q).all()
+    query = db.query(Barang)
+    if q != "all":
+        query = query.where(Barang.status == q)
+    return query.offset(skip).limit(limit).all()
 
 
 @r.get(
