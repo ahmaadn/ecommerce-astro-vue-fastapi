@@ -39,9 +39,7 @@ class Authentication:
             iat=datetime.timestamp(datetime.now()),
             exp=datetime.timestamp(datetime.now() + timedelta(minutes=expires_time)),
         )
-        jwt_crid = JWTCreds(
-            sub=str(user.email), username=str(user.username), permission=user.role.name
-        )
+        jwt_crid = JWTCreds(sub=user.email, username=user.username, permission=user.role)
         token_playload = JWTPayload(
             **jwt_meta.model_dump(),
             **jwt_crid.model_dump(),
@@ -59,7 +57,6 @@ class Authentication:
             return user
         except EmailNotValidError:
             pass
-
         user = await get_user_by_username(db, username)
         return user
 
@@ -70,9 +67,7 @@ class Authentication:
         user = await Authentication.get_user_by_email_or_username(db, username)
         if user is None:
             return False
-        if not verify_password(
-            password=password, salt=str(user.salt), hashed_pw=str(user.password)
-        ):
+        if not verify_password(password=password, salt=user.salt, hashed_pw=user.password):
             return False
         return user
 
@@ -105,7 +100,7 @@ class AuthBackend(AuthenticationBackend):
         if "authorization" not in conn.headers:
             return guest
 
-        token = conn.headers.get("authorization").split(" ")[1]  # type: ignore
+        token = conn.headers.get("authorization").split(" ")[1]
         db = next(get_db())
         user = await Authentication.get_current_user(db, token)
-        return AuthCredentials("authenticated"), user  # type: ignore
+        return AuthCredentials("authenticated"), user

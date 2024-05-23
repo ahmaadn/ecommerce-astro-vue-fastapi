@@ -23,3 +23,4 @@ class Barang(Base):
     diupdate_at = Column(DateTime, default=datetime.now(UTC), server_default=func.now())
 
     kategori = Relationship("Kategori", backref="barang")
+    list_varian = Relationship("VarianBarang", back_populates="barang")

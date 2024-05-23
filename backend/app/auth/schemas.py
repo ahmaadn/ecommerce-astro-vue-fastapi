@@ -1,19 +1,18 @@
 from datetime import datetime, timedelta
 
-from pydantic import EmailStr
+from pydantic import BaseModel, EmailStr
 
 from app.config import get_settings
-from app.schemas import CoreModel
 
 
-class JWTMeta(CoreModel):
+class JWTMeta(BaseModel):
     iat: float = datetime.timestamp(datetime.now())
     exp: float = datetime.timestamp(
         datetime.now() + timedelta(minutes=get_settings().JWT_ACCESS_TOKEN_EXPIRE_MINUTES)
     )
 
 
-class JWTCreds(CoreModel):
+class JWTCreds(BaseModel):
     """How we'll identify users"""
 
     sub: EmailStr
@@ -28,6 +27,6 @@ class JWTPayload(JWTMeta, JWTCreds):
     """
 
 
-class AccessToken(CoreModel):
+class AccessToken(BaseModel):
     access_token: str
     token_type: str

@@ -1,37 +1,36 @@
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.addresses.models import *  # noqa: F403
+from app.auth.router import router as auth_router
+from app.carts.cart.models import *  # noqa: F403
+from app.carts.cart_detail.models import *  # noqa: F403
+from app.category.models import *  # noqa: F403
+from app.category.router import router as category_router
 from app.config import get_settings
 from app.database import Base, engine
-from app.auth.authentication import AuthBackend
-from starlette.middleware.authentication import AuthenticationMiddleware
-
-# MODELS
-from app.users.models import *
-from app.addresses.models import *
-from app.carts.cart.models import *
-from app.carts.cart_detail.models import *
-from app.category.models import *
-from app.orders.order.models import *
-from app.orders.order_detail.models import *
-from app.payments.models import *
-from app.products.product.models import *
-from app.products.product_variants.models import *
-
-# ROUTER
+from app.orders.order.models import *  # noqa: F403
+from app.orders.order_detail.models import *  # noqa: F403
+from app.payments.models import *  # noqa: F403
+from app.products.product.models import *  # noqa: F403
+from app.products.product.router import router as product_router
+from app.products.product_variants.models import *  # noqa: F403
+from app.products.product_variants.router import router as varian_router
+from app.users.models import *  # noqa: F403
 from app.users.router import router as users_router
-from app.auth.router import router as auth_router
-from app.category.router import router as category_router
 
 # Create database
 Base.metadata.create_all(bind=engine)
 
 # API AROUTER
 API_VERSION = get_settings().API_VERSION
-api_router = APIRouter(prefix=API_VERSION)
+api_router = APIRouter(prefix=get_settings().API_VERSION)
 
 api_router.include_router(users_router)
 api_router.include_router(auth_router)
+api_router.include_router(category_router)
+api_router.include_router(product_router)
+api_router.include_router(varian_router)
 
 # APP
 app = FastAPI(
@@ -48,8 +47,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-app.add_middleware(AuthenticationMiddleware, backend=AuthBackend())
 
 if __name__ == "__main__":
     import uvicorn

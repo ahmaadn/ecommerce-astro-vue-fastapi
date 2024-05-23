@@ -12,4 +12,4 @@ class VarianBarang(Base):
     ukuran = Column(String(10), nullable=False)
     stok = Column(Integer, default=0)
 
-    barang = Relationship("Barang", backref="varian_barang")
+    barang = Relationship("Barang", back_populates="list_varian")

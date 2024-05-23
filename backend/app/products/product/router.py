@@ -73,5 +73,5 @@ async def barang_create(
 
 
 @r.get("/{barang_id}", response_model=DetailBarangResponeModel, status_code=status.HTTP_200_OK)
-async def get_barang_by_id(db: DependsDB, barang_id: int):
+async def get_detail_barang(db: DependsDB, barang_id: int):
     return await get_barang(db, barang_id)

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.auth.dependencies import is_user_admin
+from app.auth.dependencies import get_current_active_admin
 from app.database import DependsDB
 
 from .schemas import ProductVariantBase, ProductVariantRespones
@@ -11,7 +11,7 @@ from .services import (
     is_varian_exists,
 )
 
-router = r = APIRouter(prefix="/products", tags=["size", "products"])
+router = r = APIRouter(prefix="/products", tags=["variant", "products"])
 
 
 @r.get("/{barang_id}/variants", response_model=list[ProductVariantRespones])
@@ -22,20 +22,20 @@ async def get_all_product_size(db: DependsDB, barang_id: int):
 @r.post(
     "/{barang_id}/variants",
     status_code=status.HTTP_201_CREATED,
-    dependencies=[Depends(is_user_admin)],
+    dependencies=[Depends(get_current_active_admin)],
 )
 async def create_varian_barang(db: DependsDB, barang_id: int, new_varian: ProductVariantBase):
     result = await is_varian_exists(db, barang_id, new_varian.ukuran)
     if result:
         raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "variant already exists")
     await create_new_varian(db, barang_id, new_varian.ukuran, new_varian.stok)
-    return {"detail": "Product Stock has been created"}
+    return {"detail": "variant barang has been created"}
 
 
 @r.put(
     "/{barang_id}/variants",
     status_code=status.HTTP_202_ACCEPTED,
-    dependencies=[Depends(is_user_admin)],
+    dependencies=[Depends(get_current_active_admin)],
 )
 async def update_product_size(db: DependsDB, barang_id: int, new_data: ProductVariantRespones):
     varian_db = await get_varian_barang(db, barang_id, new_data.varian_barang_id)
@@ -53,16 +53,16 @@ async def update_product_size(db: DependsDB, barang_id: int, new_data: ProductVa
         raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "variant already exists")
     db.commit()
     db.refresh(varian_db)
-    return {"detail": "varian has been updated"}
+    return {"detail": "varian barang has been updated"}
 
 
 @router.delete(
     "/{barang_id}/variants",
     status_code=status.HTTP_202_ACCEPTED,
-    dependencies=[Depends(is_user_admin)],
+    dependencies=[Depends(get_current_active_admin)],
 )
 async def product_stock_delete(db: DependsDB, barang_id: int, varian_id: int):
     varian_db = await get_varian_barang(db, barang_id, varian_id)
     db.delete(varian_db)
     db.commit()
-    return {"detail": "size has been removed"}
+    return {"detail": "variant barang has been removed"}

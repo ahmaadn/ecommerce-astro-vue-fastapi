@@ -25,4 +25,4 @@ class BarangResponeModel(BarangBaseModel):
 
 
 class DetailBarangResponeModel(BarangResponeModel):
-    variant: list[ProductVariantRespones]
+    list_varian: list[ProductVariantRespones]

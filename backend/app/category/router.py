@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
 
 from app.auth.dependencies import get_current_active_admin
 from app.database import DependsDB
@@ -7,7 +6,7 @@ from app.database import DependsDB
 from .models import Kategori
 from .schemas import KategoriResponseModel
 
-router = r = APIRouter(prefix="/categories")
+router = r = APIRouter(prefix="/categories", tags=["category"])
 
 
 @r.get("/", response_model=list[KategoriResponseModel])
@@ -17,7 +16,7 @@ def get_all_kategori(db: DependsDB, skip: int = 0, limit: int = 10):
 
 
 @r.post("", status_code=status.HTTP_201_CREATED, dependencies=[Depends(get_current_active_admin)])
-async def create_kategori(db: Session, name: str):
+async def create_kategori(db: DependsDB, name: str):
     category_db = db.query(Kategori).where(Kategori.nama_kategori == name).first()
     if category_db:
         raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "category name already exists")
