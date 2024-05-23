@@ -7,27 +7,28 @@ export interface jwtPayLoad {
 }
 
 export interface CategoryResult {
-    id: number
-    name: string
+    kategori_id: number
+    nama_kategori: string
 }
 
 export interface ProductSizeResult {
-    size: string
-    stock: number
+    varian_barang_id: number
+    ukuram: string
+    stok: number
 }
 
 export interface ProductResult {
-    id: number
-    create_at: string
-    update_at: string
-    name: string
-    status: 'active' | 'draf' | 'archive'
-    description: string
-    price: number
-    category: CategoryResult
-    image: string
+    barang_id: number
+    // create_at: string
+    // update_at: string
+    nama_barang: string
+    // status: 'active' | 'draf'
+    deskripsi: string
+    harga: number
+    kategori: CategoryResult
+    file_gambar: string
 }
 
 export interface ProductDetailResult extends ProductResult {
-    sizes: ProductSizeResult[]
+    list_varian: ProductSizeResult[]
 }

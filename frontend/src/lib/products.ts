@@ -5,7 +5,7 @@ export const getProducts = async (
     values: {
         skip: number
         limit: number
-        query?: 'all' | 'active' | 'daft' | 'archive'
+        query?: 'all' | 'active' | 'daft'
     },
     options?: object
 ) => {

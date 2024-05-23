@@ -180,6 +180,7 @@ pnpm-debug.log*
 # folder
 example/
 .ruff_cache/
+static/
 
 # database
 *.sqlite
