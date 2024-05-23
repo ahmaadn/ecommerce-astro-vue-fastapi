@@ -1,0 +1,23 @@
+---
+import { Icon } from 'astro-icon/components'
+---
+
+<div class="flex gap-4 py-8 text-sm text-base-content md:text-base">
+    <figure class="w-20 flex-none overflow-hidden rounded-lg md:w-24">
+        <img
+            class="transision-transform ratio-1 scale-100 duration-300 group-hover:scale-110"
+            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+            alt="Shoes"
+        />
+    </figure>
+    <div class="col-span-6 flex-1">
+        <a href="/" class="text-bold hover:underline">Shoes</a>
+        <p class="text-xs">Rp 30.000</p>
+    </div>
+    <div class="flex flex-col items-end justify-between">
+        <button class="hover:text-error">
+            <Icon name="mdi:delete" size={18} />
+        </button>
+        <p class="text-sm">Rp 300.000</p>
+    </div>
+</div>

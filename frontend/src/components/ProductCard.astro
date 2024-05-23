@@ -1,0 +1,38 @@
+---
+interface Props {
+    id: number
+    name: string
+    price: number
+    image: string
+    category: string
+}
+// static/uploads/21f30ff218f542c581c6ce98cf4c04a0.jpg
+const { id, name, price, image, category } = Astro.props
+const imagePath = `${import.meta.env.PUBLIC_BACKEND_API}/${image}`
+---
+
+<a href=`/product/${id}` class="group card card-compact w-full bg-base-100 shadow-xl">
+    <figure class="relative">
+        <img
+            src={imagePath}
+            alt={name}
+            class="transision-transform scale-100 duration-300 group-hover:scale-110"
+        />
+        <div
+            class="absolute bottom-0 left-0 right-0 h-full w-full transition-colors duration-300 group-hover:bg-neutral/10"
+        >
+        </div>
+        <div
+            class="absolute bottom-0 left-0 right-0 inline-flex h-10 w-full translate-y-1 items-center justify-center bg-primary font-semibold opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+        >
+            BUY NOW
+        </div>
+    </figure>
+    <div class="card-body z-10">
+        <div class="card-title">
+            <h class="group-hover:underline">{name}</h>
+            <p class="text-right text-base">{price} IDR</p>
+        </div>
+        <div class="badge badge-primary">{category}</div>
+    </div>
+</a>

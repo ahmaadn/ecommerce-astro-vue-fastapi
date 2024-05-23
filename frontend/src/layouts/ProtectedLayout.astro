@@ -1,0 +1,19 @@
+---
+import { auth } from '@/lib/auth'
+import Layout from './Layout.astro'
+interface Props {
+    title: string
+}
+const isLogin = auth.isLogin(Astro)
+if (!isLogin) {
+    auth.logOut(Astro)
+    return new Response(null, {
+        status: 404,
+        statusText: 'not found',
+    })
+}
+---
+
+<Layout {...Astro.props}>
+    <slot />
+</Layout>

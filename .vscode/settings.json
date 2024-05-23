@@ -1,0 +1,28 @@
+{
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        // "**/.venv": true,
+        "**/__pycache__": true
+    },
+    "python.analysis.autoImportCompletions": false,
+    "python.analysis.typeCheckingMode": "basic",
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.wordWrap": "off"
+    },
+    "prettier.configPath": "frontend/.prettierrc",
+    "prettier.ignorePath": "frontend/.prettierignore",
+    "prettier.prettierPath": "frontend/node_modules/prettier",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[astro]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.wordWrap": "on"
+}

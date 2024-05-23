@@ -1,0 +1,31 @@
+---
+import type { ProductResult } from '@/types'
+import ProductCard from './ProductCard.astro'
+import { cn } from '@/lib/utils'
+
+interface Props {
+    products: Array<ProductResult>
+    class?: string
+}
+
+const { products, class: className = '' } = Astro.props
+---
+
+<div
+    class={cn(
+        'flex flex-col items-center gap-8 py-12 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-12',
+        className
+    )}
+>
+    {
+        products.map((product) => (
+            <ProductCard
+                id={product.id}
+                name={product.name}
+                price={product.price}
+                image={product.image}
+                category={product.category.name}
+            />
+        ))
+    }
+</div>

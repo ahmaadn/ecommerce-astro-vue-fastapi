@@ -1,0 +1,31 @@
+---
+import ProductDisplayForm from './ProductDisplayForm.vue'
+---
+
+<div class="flex grid-cols-2 flex-col gap-12 lg:grid">
+    <figure>
+        <img
+            class="overflow-hidden rounded-xl"
+            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+            alt="Shoes"
+        />
+    </figure>
+    <div class="space-y-4">
+        <h2 class="text-4xl font-bold">SHOES</h2>
+        <p class="text-2xl font-semibold text-secondary">Rp 300.000</p>
+        <a class="badge badge-primary">Fashion</a>
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. At accusantium quos, iste
+            officia suscipit sint expedita incidunt, nemo explicabo aliquid nobis mollitia
+            dignissimos pariatur, inventore ratione. Modi totam quaerat quibusdam.
+        </p>
+        <ProductDisplayForm
+            sizes={[
+                { size: 'S', stock: 10 },
+                { size: 'M', stock: 10 },
+                { size: 'L', stock: 10 },
+                { size: 'XL', stock: 0 },
+            ]}
+        />
+    </div>
+</div>

@@ -1,0 +1,50 @@
+---
+import { Icon } from 'astro-icon/components'
+import CartProduct from './ProductCart.astro'
+---
+
+<div class="drawer">
+    <input id="cart-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+        <label
+            for="cart-drawer"
+            class="btn btn-circle btn-ghost drawer-button no-animation hover:bg-transparent"
+        >
+            <div class="indicator">
+                <Icon name="mdi:cart-outline" size={20} />
+                <span class="badge indicator-item badge-primary badge-sm">8</span>
+            </div>
+        </label>
+    </div>
+    <div class="drawer-side z-20">
+        <label for="cart-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+        <!-- sm:w-3/5 w-10/12  -->
+        <div
+            class="flex h-screen flex-col divide-y divide-base-300 bg-base-100 text-base-content lg:w-1/3"
+        >
+            <div class="inline-flex h-16 flex-none items-center p-4 text-right shadow-sm">
+                <h2 class="text-xl font-bold">YOUR CART</h2>
+            </div>
+            <div class="flex flex-1 flex-col divide-y divide-base-200 overflow-y-auto px-4">
+                <CartProduct />
+                <CartProduct />
+                <CartProduct />
+                <CartProduct />
+                <CartProduct />
+                <CartProduct />
+                <CartProduct />
+                <CartProduct />
+                <CartProduct />
+                <CartProduct />
+            </div>
+            <div class="w-full flex-none p-4">
+                <div class="inline-flex w-full justify-between text-sm font-semibold md:text-base">
+                    <p>Sub total</p>
+                    <p>Rp100.100</p>
+                </div>
+                <p class="mb-4 text-sm md:text-base">Shipping and taxes calculated at checkout.</p>
+                <button class="btn btn-primary w-full">Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>

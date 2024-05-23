@@ -1,0 +1,10 @@
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+**/backend
+build
+coverage
+__pycache__
+.venv
+pnpm-lock.yaml

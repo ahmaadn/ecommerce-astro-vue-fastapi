@@ -1,0 +1,54 @@
+---
+import { auth } from '@/lib/auth'
+import { cn } from '@/lib/utils'
+import { cva } from 'class-variance-authority'
+import ButtonSignout from './ButtonSignout.astro'
+interface Props {
+    oriented?: 'vertical' | 'horizontal'
+    class?: string
+}
+
+const { class: className = '', oriented = 'horizontal' } = Astro.props
+
+const menuVariant = cva('menu font-semibold', {
+    variants: {
+        oriented: {
+            vertical: 'min-h-full w-80 bg-base-200 p-4 font-semibold',
+            horizontal: 'menu-horizontal items-center',
+        },
+        defaultVariant: {
+            oriented: 'horizontal',
+        },
+    },
+})
+
+const isLogin = auth.isLogin(Astro)
+---
+
+<ul class={cn(menuVariant({ oriented }), className)}>
+    <li><a>Product</a></li>
+    <li><a>About</a></li>
+    {
+        isLogin ? (
+            <>
+                <li>
+                    <a href="/dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <ButtonSignout />
+                </li>
+            </>
+        ) : (
+            <>
+                <li>
+                    <a href="/signin">Signin</a>
+                </li>
+                <li>
+                    <a class="active" href="/signup">
+                        Signup
+                    </a>
+                </li>
+            </>
+        )
+    }
+</ul>

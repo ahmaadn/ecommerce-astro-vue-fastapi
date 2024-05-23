@@ -1,0 +1,29 @@
+from datetime import datetime
+
+from pydantic import BaseModel, EmailStr, Field
+
+from .enums import RoleEnum
+
+
+class UserBase(BaseModel):
+    nama: str = Field(max_length=100)
+    username: str = Field(max_length=100)
+    email: EmailStr
+    no_hp: str | None = Field(default=None, max_length=20)
+
+
+class UserCreateModel(UserBase):
+    password: str = Field(min_length=5)
+
+
+class UserPublic(UserBase):
+    is_aktif: bool
+    role: RoleEnum
+
+    dibuat_at: datetime
+    diupdate_at: datetime
+
+
+class PasswordUpdateModel(BaseModel):
+    password: str = Field(min_length=5)
+    salt: str

@@ -1,0 +1,18 @@
+---
+import CardProduct from '@/components/ProductCard.astro'
+import Layout from '@/layouts/Layout.astro'
+import Hero from '@/components/Hero.astro'
+import { getProducts } from '@/lib/products'
+import Products from '@/components/Products.astro'
+
+const products = await getProducts({ skip: 0, limit: 10 })
+---
+
+<Layout title="Welcome to Astro.">
+    <main class="min-h-screen w-full">
+        <div class="container">
+            <Hero />
+            <Products products={products} />
+        </div>
+    </main>
+</Layout>
