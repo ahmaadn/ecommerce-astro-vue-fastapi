@@ -1,5 +1,6 @@
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import FileResponse
 
 from app.addresses.models import *  # noqa: F403
 from app.auth.router import router as auth_router
@@ -31,6 +32,15 @@ api_router.include_router(auth_router)
 api_router.include_router(category_router)
 api_router.include_router(product_router)
 api_router.include_router(varian_router)
+
+
+@api_router.get("/static/uploads/{path}")
+async def get_file(path: str):
+    try:
+        return FileResponse(f"static/uploads/{path}")
+    except BaseException as e:
+        raise HTTPException(status_code=404, detail="File not found") from e
+
 
 # APP
 app = FastAPI(
