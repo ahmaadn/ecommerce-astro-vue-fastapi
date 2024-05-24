@@ -13,7 +13,7 @@ export interface CategoryResult {
 
 export interface ProductSizeResult {
     varian_barang_id: number
-    ukuram: string
+    ukuran: string
     stok: number
 }
 

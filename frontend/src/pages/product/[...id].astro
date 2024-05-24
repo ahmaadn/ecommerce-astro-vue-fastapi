@@ -1,0 +1,30 @@
+---
+import Breadcrumb from '@/components/Breadcrumb.astro'
+import ProductDisplay from '@/components/ProductDisplay.astro'
+import Layout from '@/layouts/Layout.astro'
+import { getProductByID } from '@/lib/products'
+
+const { id } = Astro.params
+
+if (!id) {
+    return new Response(null, {
+        status: 404,
+        statusText: 'not found',
+    })
+}
+
+const product = await getProductByID(Number(id))
+if (!product) {
+    return new Response(null, {
+        status: 404,
+        statusText: 'product not found',
+    })
+}
+---
+
+<Layout title="adada">
+    <main class="container">
+        <Breadcrumb class="py-6" />
+        <ProductDisplay product={product} />
+    </main>
+</Layout>
