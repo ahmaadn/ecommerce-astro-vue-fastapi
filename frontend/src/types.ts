@@ -19,16 +19,33 @@ export interface ProductSizeResult {
 
 export interface ProductResult {
     barang_id: number
-    // create_at: string
-    // update_at: string
     nama_barang: string
-    // status: 'active' | 'draf'
     deskripsi: string
     harga: number
     kategori: CategoryResult
     file_gambar: string
+    dibuat_at: Date
+    diupdate_at: Date
 }
 
 export interface ProductDetailResult extends ProductResult {
     list_varian: ProductSizeResult[]
+}
+
+export interface UserDetail {
+    nama: string
+    username: string
+    email: string
+    no_hp: string
+    is_aktif: boolean
+    role: 'admin' | 'user'
+    dibuat_at: Date
+    diupdate_at: Date
+}
+
+export interface SidebarItem {
+    name: string
+    url?: string
+    icon?: string
+    permission?: 'admin' | 'user'
 }

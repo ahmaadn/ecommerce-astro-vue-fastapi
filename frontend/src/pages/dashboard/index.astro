@@ -1,0 +1,22 @@
+---
+import ProtectedLayout from '../../layouts/ProtectedLayout.astro'
+import { users } from '@/lib/users'
+const user = await users.getDetail(Astro)
+---
+
+<ProtectedLayout title="dashboard">
+    <br />
+    {user?.nama}
+    <br />
+    {user?.email}
+    <br />
+    {user?.no_hp}
+    <br />
+    {user?.role}
+    <br />
+    {user?.username}
+    <br />
+    {user?.dibuat_at}
+    <br />
+    {user?.diupdate_at}
+</ProtectedLayout>

@@ -1,0 +1,44 @@
+---
+import type { SidebarItem } from '@/types'
+import { Icon } from 'astro-icon/components'
+import NavLink from '../NavLink.astro'
+
+interface Props extends SidebarItem {
+    currPermission: 'admin' | 'user'
+    submenu?: SidebarItem[]
+}
+
+const { name, url = '', icon = '', submenu, permission, currPermission } = Astro.props
+
+const show = !permission || permission == currPermission
+---
+
+{
+    show && (
+        <li>
+            {submenu ? (
+                <details>
+                    <summary>
+                        {icon && <Icon name={icon} size={24} />}
+                        {name}
+                    </summary>
+                    <ul>
+                        {submenu.map(({ name, url, icon }) => (
+                            <li>
+                                <a href={url}>
+                                    {icon && <Icon name={icon} size={24} />}
+                                    {name}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </details>
+            ) : (
+                <NavLink href={url}>
+                    {icon && <Icon name={icon} size={24} />}
+                    {name}
+                </NavLink>
+            )}
+        </li>
+    )
+}

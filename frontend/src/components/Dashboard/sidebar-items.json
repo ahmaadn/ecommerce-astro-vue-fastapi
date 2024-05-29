@@ -1,0 +1,37 @@
+[
+    { "name": "Dashboard", "url": "/dashboard", "icon": "mdi:rhombus-split-outline" },
+    {
+        "name": "users",
+        "url": "/dashboard/users",
+        "permission": "admin",
+        "icon": "mdi:account-group-outline"
+    },
+    { "name": "orders", "url": "/dashboard/orders", "icon": "mdi:local-shipping" },
+    {
+        "name": "Products",
+        "permission": "admin",
+        "icon": "mdi:box-variant-closed",
+        "submenu": [
+            { "name": "Product", "url": "/dashboard/products", "icon": "mdi:box-variant" },
+            { "name": "Category", "url": "/dashboard/categories", "icon": "mdi:hashtag" }
+        ]
+    },
+    {
+        "name": "Wishlist",
+        "permission": "user",
+        "icon": "mdi:cart-outline",
+        "url": "/dashboard/wishlist"
+    },
+    {
+        "name": "Settings",
+        "icon": "mdi:settings-outline",
+        "submenu": [
+            {
+                "name": "Profile",
+                "url": "/dashboard/profile",
+                "icon": "mdi:account-circle-outline"
+            },
+            { "name": "Address", "url": "/dashboard/address", "icon": "mdi:address-marker-outline" }
+        ]
+    }
+]

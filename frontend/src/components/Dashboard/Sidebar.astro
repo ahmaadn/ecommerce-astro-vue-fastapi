@@ -1,0 +1,24 @@
+---
+import SidebarItem from './SidebarItem.astro'
+import items from './sidebar-items.json'
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+    permission: 'admin' | 'user'
+}
+
+const { permission } = Astro.props
+---
+
+<div class="flex h-screen w-80 flex-col border-r border-base-200 bg-base-100 text-base-content">
+    <a
+        class="group link-hover link inline-flex items-center gap-2 border-b border-base-200 p-4 text-2xl font-semibold"
+        href="/"
+    >
+        <Icon name="mdi:shop" size={48} class="text-secondary" />
+        Online Shop
+    </a>
+    <ul class="overflow-y menu">
+        {items.map((item) => <SidebarItem currPermission={permission} {...item} />)}
+    </ul>
+</div>
