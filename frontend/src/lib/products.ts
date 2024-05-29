@@ -1,22 +1,10 @@
-import axios from 'axios'
-import type { ProductResult, ProductDetailResult } from '@/types'
+import axios, { type AxiosResponse } from 'axios'
+import type { ProductResult, ProductDetailResult, PageResultItems } from '@/types'
+import { auth } from './auth'
+import type { AstroGlobal } from 'astro'
 
-export const getProducts = async (
-    values: {
-        skip: number
-        limit: number
-        q?: 'all' | 'active' | 'daft'
-    },
-    options?: object
-) => {
+export const getProducts = async (values: { skip: number; limit: number }) => {
     let baseUrl = `${import.meta.env.PUBLIC_BACKEND_API}/products`
-    if (!options) {
-        options = {}
-    }
-
-    if (values.q) {
-        baseUrl = `${baseUrl}/all`
-    }
 
     const respones = await axios.get(baseUrl, {
         params: values,
@@ -38,4 +26,25 @@ export const getProductByID = async (id: number) => {
         console.error(e)
         return null
     }
+}
+
+export const getAllProducts = async (
+    values: {
+        q?: 'all' | 'active' | 'daft'
+        page?: number
+        size?: number
+    },
+    Astro?: AstroGlobal
+) => {
+    const { httpOptions } = auth.authorize(Astro)
+    return new Promise<AxiosResponse<any, any>>((resolve, reject) => {
+        axios
+            .get(`${import.meta.env.PUBLIC_BACKEND_API}/products/all`, {
+                params: values,
+                timeout: 5000,
+                ...httpOptions,
+            })
+            .then((response) => resolve(response))
+            .catch((error) => reject(error))
+    })
 }

@@ -24,7 +24,6 @@ const onSubmit = form.handleSubmit((values) => {
     loading.value = true
     auth.logIn(values)
         .then((resposes) => {
-            console.log(auth.payLoad())
             if (resposes.status == 200) {
                 window.location.href = '/'
             }

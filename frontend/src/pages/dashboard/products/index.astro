@@ -1,0 +1,25 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import TableProducts from '@/components/Products/TableProducts.vue'
+import { Icon } from 'astro-icon/components'
+import '@/styles/tables.css'
+import Breadcrumb from '@/components/Breadcrumb.astro'
+---
+
+<ProtectedLayout title="Products" accessPage="admin">
+    <Breadcrumb />
+    <div class="flex flex-col gap-4">
+        <div class="flex w-full justify-end">
+            <a
+                href="/dashboard/products/create"
+                class="btn btn-success btn-sm text-success-content"
+            >
+                <Icon name="mdi:add-circle-outline" />
+                Tambah</a
+            >
+        </div>
+        <div class="rounded border border-base-200 p-4 shadow-lg">
+            <TableProducts client:load />
+        </div>
+    </div>
+</ProtectedLayout>

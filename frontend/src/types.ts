@@ -49,3 +49,11 @@ export interface SidebarItem {
     icon?: string
     permission?: 'admin' | 'user'
 }
+
+export interface PageResultItems<T> {
+    items: T[]
+    total: number
+    page: number
+    size: number
+    pages: number
+}

@@ -8,7 +8,7 @@ import icon from 'astro-icon'
 export default defineConfig({
     output: 'server',
     integrations: [
-        vue(),
+        vue({ appEntrypoint: '/src/pages/_app' }),
         tailwind({
             applyBaseStyles: false,
         }),
