@@ -14,7 +14,6 @@ const { class: className } = Astro.props
     document.addEventListener('astro:page-load', () => {
         document.querySelector('#signout')?.addEventListener('click', () => {
             auth.logOut()
-            console.log('adaa')
             navigate('/signin')
         })
     })
