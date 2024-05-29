@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel, Field, field_validator
 
 from app.category.schemas import KategoriResponseModel
@@ -8,6 +10,8 @@ from .enums import StatusEnum
 
 
 class BarangBaseModel(BaseModel):
+    dibuat_at: datetime
+    diupdate_at: datetime
     barang_id: int
     nama_barang: str = Field(max_length=100)
     deskripsi: str

@@ -1,6 +1,7 @@
 from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, File, Form, UploadFile, status
+from fastapi_pagination import Page, paginate
 
 from app.auth.dependencies import get_current_active_admin
 from app.category.models import Kategori
@@ -28,17 +29,15 @@ async def get_active_barang(db: DependsDB, skip: int = 0, limit: int = 10):
 
 @r.get(
     "/all",
-    response_model=list[BarangResponeModel],
+    response_model=Page[BarangResponeModel],
     status_code=status.HTTP_200_OK,
     dependencies=[Depends(get_current_active_admin)],
 )
-async def get_all_barang(
-    db: DependsDB, skip: int = 0, limit: int = 10, q: StatusEnum | Literal["all"] = "all"
-):
+async def get_all_barang(db: DependsDB, q: StatusEnum | Literal["all"] = "all"):
     query = db.query(Barang)
     if q != "all":
         query = query.where(Barang.status == q)
-    return query.offset(skip).limit(limit).all()
+    return paginate(query.all())
 
 
 @r.get(
