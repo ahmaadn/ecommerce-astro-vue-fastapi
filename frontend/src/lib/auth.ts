@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse } from 'axios'
-import type { jwtPayLoad } from '@/types'
+import type { JwtPayLoad } from '@/types'
 import { jwtDecode } from 'jwt-decode'
 import Cookies from 'js-cookie'
 import type { AstroGlobal } from 'astro'
@@ -11,7 +11,7 @@ const auth = {
         }
         return Cookies.get('accessToken')
     },
-    authorize: async (Astro?: AstroGlobal) => {
+    authorize: (Astro?: AstroGlobal) => {
         const token = auth.token(Astro)
         if (!token) {
             throw new Error('token login tidak ada')
@@ -79,16 +79,8 @@ const auth = {
         })
     },
     payLoad: (Astro?: AstroGlobal) => {
-        let token
-        if (!Astro) {
-            token = Cookies.get('accessToken')
-        } else {
-            token = Astro.cookies.get('accessToken')?.value
-        }
-        if (!token) {
-            return null
-        }
-        const decodeJwt = jwtDecode<jwtPayLoad>(token)
+        const token = Astro ? Astro.cookies.get('accessToken')?.value : Cookies.get('accessToken')
+        const decodeJwt = jwtDecode<JwtPayLoad>(token)
         return decodeJwt
     },
 }

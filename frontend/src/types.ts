@@ -1,9 +1,9 @@
-export interface jwtPayLoad {
+export interface JwtPayLoad {
     iat: string
     exp: string
     sub: string
     username: string
-    permission: string
+    permission: 'admin' | 'user'
 }
 
 export interface CategoryResult {
