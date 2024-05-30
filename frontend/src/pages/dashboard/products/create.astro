@@ -1,12 +1,14 @@
 ---
 import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
 import CreateProduct from '@/components/Products/CreateProduct.vue'
-import Breadcrumb from '@/components/Breadcrumb.astro'
 ---
 
 <ProtectedLayout title="Create Product" accessPage="admin">
-    <div class="space-y-4">
-        <Breadcrumb />
-        <CreateProduct />
+    <div class="card bg-base-100 p-6 shadow-xl md:p-8">
+        <div class="text-2xl font-semibold">Buat Barang</div>
+        <div class="divider"></div>
+        <div>
+            <CreateProduct client:load />
+        </div>
     </div>
 </ProtectedLayout>

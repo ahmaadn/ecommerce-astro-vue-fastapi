@@ -31,6 +31,8 @@ export const getProductByID = async (id: number) => {
 export const getAllProducts = async (
     values: {
         q?: 'all' | 'active' | 'daft'
+        sort_by?: 'barang_id' | 'nama_barang' | 'harga'
+        sort_type?: 'asc' | 'desc'
         page?: number
         size?: number
     },

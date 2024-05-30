@@ -2,16 +2,15 @@
     --easy-table-border: ;
 
     --easy-table-header-height: 55px;
-    --easy-table-header-font-color: oklch(var(--bc));
-    /* --easy-table-header-background-color: oklch(var(--b2)); */
+    --easy-table-header-font-color: oklch(var(--bc) / 0.6);
 
-    --easy-table-body-row-height: 60px;
+    --easy-table-body-row-height: 70px;
 }
 
 @media (min-width: 768px) {
     :root {
-        --easy-table-header-font-size: 16px;
+        /* --easy-table-header-font-size: 16px;
 
-        --easy-table-body-row-font-size: 16px;
+        --easy-table-body-row-font-size: 16px; */
     }
 }

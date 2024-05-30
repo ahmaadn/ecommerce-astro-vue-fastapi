@@ -25,7 +25,10 @@ const items = ref<Item[]>([])
 const loadProducts = async () => {
     loading.value = true
     const options = optionsServer.value
+    console.log(optionsServer.value)
     await getAllProducts({
+        sort_by: options.sortBy,
+        sort_type: options.sortType,
         page: options.page,
         size: options.rowsPerPage,
     })
@@ -46,19 +49,22 @@ onMounted(async () => {
     await loadProducts()
 })
 
-watch(serverItemsLength, async (value) => {
-    await loadProducts()
-})
+watch(
+    optionsServer,
+    async (value) => {
+        await loadProducts()
+    },
+    { deep: true }
+)
 </script>
 <template>
     <EasyDataTable
         v-model:server-options="optionsServer"
-        table-class-name="content-table"
         :server-items-length="serverItemsLength"
         :headers="headers"
         :items="items"
         :loading="loading"
-        :rows-items="[10, 15, 25, 50]"
+        :rows-items="[1, 5, 25, 50]"
     >
         <template #loading>
             <img
@@ -77,10 +83,26 @@ watch(serverItemsLength, async (value) => {
                             />
                         </div>
                     </div>
-                    <div class="font-semibold">{{ nama_barang }}</div>
+                    <div class="font-bold">{{ nama_barang }}</div>
                 </div>
             </div>
         </template>
+        <template #item-dibuat_at="{ dibuat_at }">
+            {{ new Date(dibuat_at + 'Z').toLocaleDateString('id-ID') }}
+        </template>
+        <template #item-diupdate_at="{ diupdate_at }">
+            {{ new Date(diupdate_at + 'Z').toLocaleDateString('id-ID') }}
+        </template>
+
+        <template #item-status="{ status }">
+            <div
+                class="badge"
+                :class="{ 'badge-ghost': status == 'draft', 'badge-primary': status == 'active' }"
+            >
+                {{ status }}
+            </div>
+        </template>
+
         <template #item-action="{ barang_id }">
             <a :href="`/dashboard/products/${barang_id}`" class="btn btn-ghost btn-xs">details</a>
         </template>

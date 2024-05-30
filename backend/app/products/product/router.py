@@ -33,8 +33,17 @@ async def get_active_barang(db: DependsDB, skip: int = 0, limit: int = 10):
     status_code=status.HTTP_200_OK,
     dependencies=[Depends(get_current_active_admin)],
 )
-async def get_all_barang(db: DependsDB, q: StatusEnum | Literal["all"] = "all"):
+async def get_all_barang(
+    db: DependsDB,
+    q: StatusEnum | Literal["all"] = "all",
+    sort_by: Literal["barang_id", "nama_barang", "harga"] = "nama_barang",
+    sort_type: Literal["asc", "desc"] = "asc",
+):
     query = db.query(Barang)
+    if sort_by and sort_type:
+        order_by = getattr(getattr(Barang, sort_by), sort_type)()
+        query = query.order_by(order_by)
+
     if q != "all":
         query = query.where(Barang.status == q)
     return paginate(query.all())

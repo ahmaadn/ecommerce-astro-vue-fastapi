@@ -1,10 +1,19 @@
 ---
+import { cn } from '@/lib/utils'
 
+interface Props {
+    class?: string
+}
+
+const { class: className = '' } = Astro.props
 ---
 
 <div
     id="navbar"
-    class="sticky top-0 z-20 flex h-16 w-full justify-center border-b border-base-200 bg-base-100 bg-opacity-90 backdrop-blur transition-shadow duration-100 [transform:translate3d(0,0,0)]"
+    class={cn(
+        'sticky top-0 z-20 flex h-16 w-full justify-center border-b border-base-200 bg-base-100 bg-opacity-90 backdrop-blur transition-shadow duration-100 [transform:translate3d(0,0,0)]',
+        className
+    )}
 >
     <nav class="navbar w-full">
         <slot />

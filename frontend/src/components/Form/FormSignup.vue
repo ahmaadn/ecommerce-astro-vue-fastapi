@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import {
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { auth } from '@/lib/auth'
 import { toTypedSchema } from '@vee-validate/zod'
-import { useForm, Field, ErrorMessage } from 'vee-validate'
+import { useForm } from 'vee-validate'
 import { ref } from 'vue'
 import { z } from 'zod'
 import { Input } from '@/components/ui/input'

@@ -9,9 +9,9 @@ from .schemas import KategoriResponseModel
 router = r = APIRouter(prefix="/categories", tags=["category"])
 
 
-@r.get("/", response_model=list[KategoriResponseModel])
-def get_all_kategori(db: DependsDB, skip: int = 0, limit: int = 10):
-    category_db = db.query(Kategori).offset(skip).limit(limit).all()
+@r.get("", response_model=list[KategoriResponseModel])
+def get_all_kategori(db: DependsDB):
+    category_db = db.query(Kategori).all()
     return category_db
 
 
