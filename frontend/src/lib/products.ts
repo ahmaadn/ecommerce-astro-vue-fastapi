@@ -50,3 +50,12 @@ export const getAllProducts = async (
             .catch((error) => reject(error))
     })
 }
+
+export const getKategories = async () => {
+    return new Promise<AxiosResponse<any, any>>((resolve, reject) => {
+        axios
+            .get(`${import.meta.env.PUBLIC_BACKEND_API}/categories`)
+            .then((response) => resolve(response))
+            .catch((error) => reject(error))
+    })
+}

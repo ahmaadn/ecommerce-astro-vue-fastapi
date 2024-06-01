@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { ProductSizeResult } from '@/types'
+import type { ProductVariantType } from '@/types'
 
 const props = defineProps<{
-    varians: ProductSizeResult[]
+    varians: ProductVariantType[]
 }>()
 </script>
 <template>

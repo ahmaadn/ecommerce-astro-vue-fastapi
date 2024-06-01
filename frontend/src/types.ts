@@ -11,7 +11,7 @@ export interface CategoryResult {
     nama_kategori: string
 }
 
-export interface ProductSizeResult {
+export interface ProductVariantType {
     varian_barang_id: number
     ukuran: string
     stok: number
@@ -26,10 +26,11 @@ export interface ProductResult {
     file_gambar: string
     dibuat_at: Date
     diupdate_at: Date
+    status: 'active' | 'draft'
 }
 
 export interface ProductDetailResult extends ProductResult {
-    list_varian: ProductSizeResult[]
+    list_varian: ProductVariantType[]
 }
 
 export interface UserDetail {

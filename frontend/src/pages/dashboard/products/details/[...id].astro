@@ -1,5 +1,6 @@
 ---
 import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import EditProduct from '@/components/Products/DetailProduct/EditProduct.vue'
 import { getProductByID } from '@/lib/products'
 
 const { id } = Astro.params
@@ -20,11 +21,5 @@ if (!product) {
 ---
 
 <ProtectedLayout title="" accessPage="admin">
-    <div class="card bg-base-100 p-6 shadow-xl md:p-8">
-        <div class="text-2xl font-semibold">Detail Barang</div>
-        <div class="divider"></div>
-        <div>
-            NamaBarang {product.nama_barang}
-        </div>
-    </div>
+    <EditProduct client:load product={product} />
 </ProtectedLayout>

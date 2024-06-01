@@ -40,8 +40,7 @@ async def create_varian_barang(db: DependsDB, barang_id: int, new_varian: Produc
 async def update_product_size(db: DependsDB, barang_id: int, new_data: ProductVariantRespones):
     varian_db = await get_varian_barang(db, barang_id, new_data.varian_barang_id)
     if new_data.ukuran and str(varian_db.ukuran) == new_data.ukuran:
-        varian_db.stok = new_data.stok  # type: ignore
-
+        varian_db.stok = new_data.stok
     elif (
         new_data.ukuran
         and str(varian_db.ukuran) != new_data.ukuran

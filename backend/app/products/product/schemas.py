@@ -30,3 +30,11 @@ class BarangResponeModel(BarangBaseModel):
 
 class DetailBarangResponeModel(BarangResponeModel):
     list_varian: list[ProductVariantRespones]
+
+
+class BarangUpdateModel(BaseModel):
+    nama_barang: str | None = Field(default=None, max_length=100)
+    deskripsi: str | None = None
+    harga: int | None = None
+    status: StatusEnum | None = None
+    kategori_id: int | None = None

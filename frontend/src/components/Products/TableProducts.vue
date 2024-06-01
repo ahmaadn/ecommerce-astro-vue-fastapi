@@ -25,7 +25,6 @@ const items = ref<Item[]>([])
 const loadProducts = async () => {
     loading.value = true
     const options = optionsServer.value
-    console.log(optionsServer.value)
     await getAllProducts({
         sort_by: options.sortBy,
         sort_type: options.sortType,

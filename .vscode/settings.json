@@ -24,5 +24,34 @@
     "[astro]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "online shop tb",
+            "database": "online_shop_tb",
+            "username": "root"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "online_shop_tb",
+            "database": "online_shop_tb",
+            "username": "root",
+            "password": ""
+        }
+    ]
 }

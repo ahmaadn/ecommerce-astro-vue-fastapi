@@ -1,16 +1,20 @@
 from typing import Annotated, Literal
 
-from fastapi import APIRouter, Depends, File, Form, UploadFile, status
+from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
 from fastapi_pagination import Page, paginate
 
 from app.auth.dependencies import get_current_active_admin
 from app.category.models import Kategori
 from app.database import DependsDB
+from app.orders.order.enums import StatusOrder
+from app.orders.order.models import Pesanan
+from app.orders.order_detail.models import DetailPesanan
 from app.upload import handle_file_upload
 
+from ..product_variants.models import VarianBarang
 from .enums import StatusEnum
 from .models import Barang
-from .schemas import BarangResponeModel, DetailBarangResponeModel
+from .schemas import BarangResponeModel, BarangUpdateModel, DetailBarangResponeModel
 from .services import create_barang, get_barang
 
 router = r = APIRouter(
@@ -83,3 +87,50 @@ async def barang_create(
 @r.get("/{barang_id}", response_model=DetailBarangResponeModel, status_code=status.HTTP_200_OK)
 async def get_detail_barang(db: DependsDB, barang_id: int):
     return await get_barang(db, barang_id)
+
+
+@r.post(
+    "/update-image",
+    status_code=status.HTTP_200_OK,
+    dependencies=[Depends(get_current_active_admin)],
+)
+async def update_image_product(
+    db: DependsDB, barang_id: Annotated[int, Form], gambar: Annotated[UploadFile, File]
+):
+    path_gambar = await handle_file_upload(gambar)
+    barang = await get_barang(db, barang_id)
+    barang.file_gambar = path_gambar
+    db.commit()
+    db.refresh(barang)
+    return {"details": "Gambar telah diupdate"}
+
+
+@r.delete("", status_code=status.HTTP_200_OK, dependencies=[Depends(get_current_active_admin)])
+async def delete_barang(db: DependsDB, barang_id: int):
+    # Get
+    pesanan_detail = (
+        db.query(DetailPesanan)
+        .join(Pesanan, Pesanan.pesanan_id == DetailPesanan.pesanan_id)
+        .join(VarianBarang, DetailPesanan.varian_barang_id == VarianBarang.varian_barang_id)
+        .where(VarianBarang.barang_id == Barang.barang_id)
+        .filter(Pesanan.status != StatusOrder.COMPLETED)
+        .all()
+    )
+    if pesanan_detail:
+        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "barang tidak dapat dihapus")
+    barang = await get_barang(db, barang_id)
+    db.delete(barang)
+    db.commit()
+    return {"details": "pesanan telah berhasil"}
+
+
+@r.put("", dependencies=[Depends(get_current_active_admin)])
+async def barang_update(db: DependsDB, barang_id: int, new_barang: BarangUpdateModel):
+    barang_db = await get_barang(db, barang_id)
+
+    for field, value in new_barang.model_dump(exclude_none=True).items():
+        setattr(barang_db, field, value)
+
+    db.commit()
+    db.refresh(barang_db)
+    return {"details": "barang berhasil di update"}
