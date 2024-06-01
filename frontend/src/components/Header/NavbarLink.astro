@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<'a'> {
+    href?: string
+    class?: string
+}
+
+const { href, class: className = '', ...props } = Astro.props
+const active = !href
+    ? false
+    : Astro.url.pathname === href || (href !== '/dashboard' && Astro.url.pathname.startsWith(href))
+---
+
+<a href={href} class:list={[{ active: active }, className]} aria-current={active} {...props}>
+    <slot />
+</a>

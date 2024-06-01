@@ -104,7 +104,9 @@ watch(
         </template>
 
         <template #item-action="{ barang_id }">
-            <a :href="`/dashboard/products/${barang_id}`" class="btn btn-ghost btn-xs">details</a>
+            <a :href="`/dashboard/products/details/${barang_id}`" class="btn btn-ghost btn-xs"
+                >details</a
+            >
         </template>
     </EasyDataTable>
 </template>

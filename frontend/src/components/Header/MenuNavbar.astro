@@ -1,0 +1,69 @@
+---
+import { auth } from '@/lib/auth'
+import { cn } from '@/lib/utils'
+import { cva } from 'class-variance-authority'
+
+import NavbarLink from './NavbarLink.astro'
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+    oriented?: 'vertical' | 'horizontal'
+    class?: string
+}
+
+const { class: className = '', oriented = 'horizontal' } = Astro.props
+
+const menuVariant = cva('menu font-semibold', {
+    variants: {
+        oriented: {
+            vertical: 'min-h-full w-80 bg-base-200 p-4 font-semibold',
+            horizontal: 'menu-horizontal items-center',
+        },
+        defaultVariant: {
+            oriented: 'horizontal',
+        },
+    },
+})
+
+const isLogin = auth.isLogin(Astro)
+---
+
+<ul class={cn(menuVariant({ oriented }), className)}>
+    {
+        isLogin ? (
+            <>
+                <li>
+                    <NavbarLink href="/dashboard">
+                        {oriented == 'vertical' && (
+                            <Icon name="mdi:rhombus-split-outline" size={24} />
+                        )}
+                        Dashboard
+                    </NavbarLink>
+                </li>
+                <li>
+                    <form action="/api/auth/signout">
+                        <button type="submit" class="inline-flex gap-2">
+                            {oriented == 'vertical' && <Icon name="mdi:logout" size={24} />}
+                            Keluar
+                        </button>
+                    </form>
+                </li>
+            </>
+        ) : (
+            <>
+                <li>
+                    <NavbarLink href="/signin">
+                        {oriented == 'vertical' && <Icon name="mdi:login" size={24} />}
+                        Masuk
+                    </NavbarLink>
+                </li>
+                <li>
+                    <NavbarLink class="active" href="/signup">
+                        {oriented == 'vertical' && <Icon name="mdi:register" size={24} />}
+                        Daftar
+                    </NavbarLink>
+                </li>
+            </>
+        )
+    }
+</ul>

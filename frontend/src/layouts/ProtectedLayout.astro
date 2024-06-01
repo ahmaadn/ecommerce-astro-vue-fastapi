@@ -1,8 +1,8 @@
 ---
 import { auth } from '@/lib/auth'
 import BaseLayout from './BaseLayout.astro'
-import Header from '@/components/Dashboard/Header.astro'
-import Sidebar from '@/components/Dashboard/Sidebar.astro'
+import Header from '@/components/Header/Dashboard/Header.astro'
+import Sidebar from '@/components/Header/Dashboard/Sidebar.astro'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -15,10 +15,6 @@ const { accessPage = 'all', class: className = '' } = Astro.props
 const isLogin = auth.isLogin(Astro)
 if (!isLogin) {
     auth.logOut(Astro)
-    // return new Response(null, {
-    //     status: 404,
-    //     statusText: 'not found',
-    // })
 }
 const currPermission = isLogin ? auth.payLoad(Astro).permission : 'none'
 const show = (accessPage == 'all' || accessPage == currPermission) && isLogin
