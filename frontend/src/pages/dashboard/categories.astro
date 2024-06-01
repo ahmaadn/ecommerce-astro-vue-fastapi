@@ -1,7 +1,8 @@
 ---
+import TableCatagories from '@/components/TableCatagories.vue'
 import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
 ---
 
 <ProtectedLayout title="Categories" accessPage="admin">
-    <div>CATEGORI</div>
+    <TableCatagories client:load />
 </ProtectedLayout>

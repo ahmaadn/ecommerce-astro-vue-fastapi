@@ -118,7 +118,6 @@ const refreshVariant = async () => {
                 <div>Tekan baris untuk edit atau hapus</div>
                 <EasyDataTable :headers="headers" :items="items" show-index @click-row="showRow">
                 </EasyDataTable>
-                <div id="row-clicked"></div>
                 <form @submit="handleSubmit">
                     <div class="inline-flex w-full gap-2">
                         <Input name="ukuran" label="ukuran" />

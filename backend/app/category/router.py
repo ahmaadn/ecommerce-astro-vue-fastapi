@@ -16,12 +16,33 @@ def get_all_kategori(db: DependsDB):
 
 
 @r.post("", status_code=status.HTTP_201_CREATED, dependencies=[Depends(get_current_active_admin)])
-async def create_kategori(db: DependsDB, name: str):
-    category_db = db.query(Kategori).where(Kategori.nama_kategori == name).first()
+async def create_kategori(db: DependsDB, nama_kategori: str):
+    category_db = db.query(Kategori).where(Kategori.nama_kategori == nama_kategori).first()
     if category_db:
         raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "category name already exists")
-    category_db = Kategori(nama_kategori=name)
+    category_db = Kategori(nama_kategori=nama_kategori)
     db.add(category_db)
     db.commit()
     db.refresh(category_db)
     return {"detail": "categories have been created"}
+
+
+@r.put("", status_code=status.HTTP_201_CREATED, dependencies=[Depends(get_current_active_admin)])
+async def update_name_kategori(db: DependsDB, kategori_id: int, nama_kategori: str):
+    category_db = db.query(Kategori).where(Kategori.kategori_id == kategori_id).first()
+    if not category_db:
+        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "kategori tidak ditemukan")
+
+    is_already = (
+        db.query(Kategori)
+        .where(Kategori.nama_kategori == nama_kategori, Kategori.kategori_id != kategori_id)
+        .first()
+    )
+
+    if is_already:
+        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "category name already exists")
+
+    category_db.nama_kategori = nama_kategori
+    db.commit()
+    db.refresh(category_db)
+    return {"detail": "kategori berhasil di update"}
