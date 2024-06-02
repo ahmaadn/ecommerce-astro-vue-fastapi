@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { auth } from '@/lib/auth'
 import axios from 'axios'
-import { ref, watch, onMounted } from 'vue'
-import type { Header, Item, ServerOptions } from 'vue3-easy-data-table'
+import { ref, onMounted } from 'vue'
+import type { Header, Item } from 'vue3-easy-data-table'
 
 const headers: Header[] = [
     { text: 'username', value: 'username' },
@@ -30,8 +30,12 @@ const loadUser = async () => {
                 items.value = data.items
             }
         })
-        .then((e) => {
-            console.error(e)
+        .catch((e) => {
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
 }
 

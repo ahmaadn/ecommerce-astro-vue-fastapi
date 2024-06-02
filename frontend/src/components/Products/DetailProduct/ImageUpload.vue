@@ -45,12 +45,16 @@ const handleSubmit = form.handleSubmit(async (values) => {
             },
         })
         .then((res) => {
-            if (res.status == 200) {
-                alert(res.data)
-            }
+            const detail = res.data.detail
+            alert(detail)
+            window.location.href = `/dashboard/products/details?product=${product.barang_id}`
         })
         .catch((e) => {
-            console.error(e)
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
 })
 

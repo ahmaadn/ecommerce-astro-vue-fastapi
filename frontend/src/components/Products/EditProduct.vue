@@ -4,11 +4,11 @@ import * as z from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { onMounted } from 'vue'
-import KategoryForm from './KategoryForm.vue'
-import StatusForm from './StatusForm.vue'
-import DetailProductForm from './DetailProductForm.vue'
-import TableVarianForm from './TableVarianForm.vue'
-import ImageUpload from './ImageUpload.vue'
+import KategoryForm from './DetailProduct/KategoryForm.vue'
+import StatusForm from './DetailProduct/StatusForm.vue'
+import DetailProductForm from './DetailProduct/DetailProductForm.vue'
+import TableVarianForm from './DetailProduct/TableVarianForm.vue'
+import ImageUpload from './DetailProduct/ImageUpload.vue'
 import axios from 'axios'
 import { auth } from '@/lib/auth'
 
@@ -42,39 +42,41 @@ const onSumbit = form.handleSubmit(async (values) => {
             },
         })
         .then((res) => {
-            if (res.status == 200) {
-                alert('Data berhasil di update')
-            }
+            const detail = res.data.detail
+            alert(detail)
+            window.location.href = `/dashboard/products/details?product=${product.barang_id}`
         })
         .catch((e) => {
-            console.error(e)
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
 })
 
 const onDelete = async () => {
-    const { headers: headerAuth } = auth.authorize().httpOptions
-    await axios.delete(
-        `${import.meta.env.PUBLIC_BACKEND_API}/products?barang_id=${product.barang_id}`,
-        {
-            headers: {
-                ...headerAuth,
-            },
-        }
-    )
-    window.location.href = '/dashboard/products'
+    const { headers } = auth.authorize().httpOptions
+    await axios
+        .delete(`${import.meta.env.PUBLIC_BACKEND_API}/products?barang_id=${product.barang_id}`, {
+            headers,
+        })
+        .then((res) => {
+            const detail = res.data.detail
+            alert(detail)
+            window.location.href = '/dashboard/products'
+        })
+        .catch((e) => {
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
+        })
 }
 
 onMounted(async () => {
-    form.setValues(
-        {
-            nama_barang: product.nama_barang,
-            deskripsi: product.deskripsi,
-            harga: product.harga,
-            status: product.status,
-            kategori_id: product.kategori.kategori_id,
-        },
-        true
-    )
+    form.setValues({ kategori_id: product.kategori.kategori_id, ...product })
 })
 </script>
 

@@ -15,6 +15,7 @@ const headers: Header[] = [
 
 const items = ref<Item[]>([])
 const selectedkategory = ref<Number>(0)
+const { headers: headersAuth } = auth.authorize().httpOptions
 
 const validationSchema = toTypedSchema(
     z.object({
@@ -34,7 +35,11 @@ const loadKategories = async () => {
             }
         })
         .catch((e) => {
-            console.error(e)
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
 }
 
@@ -62,7 +67,6 @@ const onCancel = () => {
 }
 
 const onCreate = async (values: String) => {
-    const { headers: headersAuth } = auth.authorize().httpOptions
     await axios
         .post(
             `${import.meta.env.PUBLIC_BACKEND_API}/categories`,
@@ -72,18 +76,16 @@ const onCreate = async (values: String) => {
                 headers: headersAuth,
             }
         )
-        .then((res) => {
-            if (res.status) {
-                alert('Kategori telah berhasil ditambahkan')
-            }
-        })
         .catch((e) => {
-            console.error(e)
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
 }
 
 const onUpdate = async (values: String) => {
-    const { headers: headersAuth } = auth.authorize().httpOptions
     await axios
         .put(
             `${import.meta.env.PUBLIC_BACKEND_API}/categories`,
@@ -93,13 +95,12 @@ const onUpdate = async (values: String) => {
                 headers: headersAuth,
             }
         )
-        .then((res) => {
-            if (res.status) {
-                alert('Kategori telah berhasil diupdate')
-            }
-        })
         .catch((e) => {
-            console.error(e)
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
 }
 </script>

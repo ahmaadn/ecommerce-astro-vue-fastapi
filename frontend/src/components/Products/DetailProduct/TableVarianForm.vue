@@ -17,7 +17,6 @@ const headers: Header[] = [
     { text: 'Ukuran', value: 'ukuran' },
     { text: 'Stok', value: 'stok' },
 ]
-
 const items = ref<Item[]>(props.list_variant)
 const selectedVariant = ref<Number>(0)
 const baseurl = `${import.meta.env.PUBLIC_BACKEND_API}/products/${barang_id}/variants`
@@ -55,17 +54,20 @@ const onDelete = async () => {
         .delete(`${baseurl}?varian_id=${selectedVariant.value}`, {
             ...httpOptions,
         })
-        .then((res) => {
+        .then(async (res) => {
             selectedVariant.value = 0
-            alert('Berhasil di hapus')
+            await refreshVariant()
         })
         .catch((e) => {
-            console.error(e)
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
-    await refreshVariant()
 }
 
-const onUpdate = async (values: ProductVariantType) => {
+const onUpdate = async (values: any) => {
     const { httpOptions } = auth.authorize()
     await axios
         .put(baseurl, values, {
@@ -74,16 +76,19 @@ const onUpdate = async (values: ProductVariantType) => {
                 ...httpOptions.headers,
             },
         })
-        .then((res) => {
-            alert([JSON.stringify(res.data)])
+        .then(async (res) => {
+            await refreshVariant()
         })
         .catch((e) => {
-            console.error(e)
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
-    await refreshVariant()
 }
 
-const onAddVariant = async (values) => {
+const onAddVariant = async (values: any) => {
     const { httpOptions } = auth.authorize()
     await axios
         .post(baseurl, values, {
@@ -92,21 +97,33 @@ const onAddVariant = async (values) => {
                 ...httpOptions.headers,
             },
         })
-        .then((res) => {
-            alert([JSON.stringify(res.data)])
+        .then(async (res) => {
+            await refreshVariant()
         })
         .catch((e) => {
-            console.error(e)
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
-    await refreshVariant()
 }
 const refreshVariant = async () => {
     console.log(baseurl)
-    axios.get(baseurl).then((res) => {
-        if (res.status == 200) {
-            items.value = res.data
-        }
-    })
+    axios
+        .get(baseurl)
+        .then((res) => {
+            if (res.status == 200) {
+                items.value = res.data
+            }
+        })
+        .catch((e) => {
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
+        })
 }
 </script>
 

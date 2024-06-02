@@ -14,7 +14,6 @@ const kategories = ref<
         nama_kategori: String
     }[]
 >([])
-const loading = ref(false)
 
 onMounted(async () => {
     await axios
@@ -26,7 +25,11 @@ onMounted(async () => {
             }
         })
         .catch((e) => {
-            console.error(e)
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
 })
 
@@ -50,7 +53,6 @@ const validationSchema = toTypedSchema(
 const form = useForm({ validationSchema })
 
 const onSubmit = form.handleSubmit((values) => {
-    loading.value = true
     const { headers: headersAuth } = auth.authorize().httpOptions
     const formData = new FormData()
     formData.append('gambar', values.gambar)
@@ -69,15 +71,14 @@ const onSubmit = form.handleSubmit((values) => {
             },
         })
         .then((response) => {
-            if (response.status >= 200 && response.status <= 300) {
-                window.location.href = '/dashboard/products'
-            }
+            window.location.href = '/dashboard/products'
         })
         .catch((e) => {
-            console.error(e)
-        })
-        .finally(() => {
-            loading.value = true
+            if (e.response) {
+                alert(e.response.data.detail)
+            } else {
+                console.error(e)
+            }
         })
 })
 </script>
@@ -164,6 +165,6 @@ const onSubmit = form.handleSubmit((values) => {
                 <ErrorMessage name="gambar" class="text-sm text-error"></ErrorMessage>
             </div>
         </div>
-        <button type="submit" class="btn btn-success" :disabled="loading">Buat Barang</button>
+        <button type="submit" class="btn btn-success">Buat Barang</button>
     </form>
 </template>

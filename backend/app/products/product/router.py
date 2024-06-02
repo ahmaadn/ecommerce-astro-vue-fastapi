@@ -121,7 +121,7 @@ async def delete_barang(db: DependsDB, barang_id: int):
     barang = await get_barang(db, barang_id)
     db.delete(barang)
     db.commit()
-    return {"detail": "pesanan telah berhasil"}
+    return {"detail": "barang telah dihapus"}
 
 
 @r.put("", dependencies=[Depends(get_current_active_admin)])

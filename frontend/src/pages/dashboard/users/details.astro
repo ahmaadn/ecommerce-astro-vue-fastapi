@@ -26,7 +26,11 @@ await axios
         }
     })
     .catch((e) => {
-        console.error(e)
+        if (e.response) {
+            alert(e.response.data.detail)
+        } else {
+            console.error(e)
+        }
     })
 
 if (!user) {
