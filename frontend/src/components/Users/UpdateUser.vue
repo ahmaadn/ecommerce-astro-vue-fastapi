@@ -44,7 +44,7 @@ const onSumbit = form.handleSubmit(async (values) => {
                     auth.logOut()
                     window.location.href = `/signin`
                 } else {
-                    window.location.href = `/dashboard/users/detail?username=${props.user.username}`
+                    window.location.href = `/dashboard/users/details?username=${props.user.username}`
                 }
             }
         })
@@ -80,7 +80,15 @@ onMounted(() => {
                     </svg>
                 </a>
                 <div class="text-2xl">{{ user.nama }}</div>
-                <div class="badge badge-primary">{{ user.role }}</div>
+                <div
+                    class="badge"
+                    :class="{
+                        'badge-success': user.role == 'admin',
+                        'badge-accent': user.role == 'user',
+                    }"
+                >
+                    {{ user.role }}
+                </div>
             </div>
             <button class="btn btn-success btn-sm" type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

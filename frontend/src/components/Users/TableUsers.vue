@@ -7,8 +7,8 @@ import type { Header, Item } from 'vue3-easy-data-table'
 const headers: Header[] = [
     { text: 'username', value: 'username' },
     { text: 'email', value: 'email', width: 300 },
-    { text: 'ho_hp', value: 'no_hp' },
     { text: 'role', value: 'role' },
+    { text: 'Status', value: 'is_aktif' },
     { text: 'Dibuat', value: 'dibuat_at' },
     { text: 'Update', value: 'diupdate_at' },
     { text: '', value: 'action', width: 20 },
@@ -61,9 +61,18 @@ onMounted(async () => {
         <template #item-role="{ role }">
             <div
                 class="badge"
-                :class="{ 'badge-accent': role == 'admin', 'badge-primary': role == 'active' }"
+                :class="{ 'badge-success': role == 'admin', 'badge-accent': role == 'user' }"
             >
                 {{ role }}
+            </div>
+        </template>
+        <template #item-is_aktif="{ is_aktif }">
+            <div class="flex items-center gap-2">
+                <span
+                    class="badge badge-xs"
+                    :class="{ 'badge-info': is_aktif, 'badge-error': !is_aktif }"
+                ></span>
+                {{ is_aktif ? 'Active' : 'Not active' }}
             </div>
         </template>
         <template #item-action="{ username }">

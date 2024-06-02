@@ -99,7 +99,15 @@ onMounted(async () => {
                         </svg>
                     </a>
                     <div class="text-2xl">{{ product.nama_barang }}</div>
-                    <div class="badge badge-primary">{{ product.status }}</div>
+                    <div
+                        class="badge"
+                        :class="{
+                            'badge-accent': product.status == 'draft',
+                            'badge-success': product.status == 'active',
+                        }"
+                    >
+                        {{ product.status }}
+                    </div>
                 </div>
                 <div class="inline-flex gap-4">
                     <button type="submit" class="btn btn-success btn-sm">

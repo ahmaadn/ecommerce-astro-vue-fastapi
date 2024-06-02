@@ -96,7 +96,7 @@ watch(
         <template #item-status="{ status }">
             <div
                 class="badge"
-                :class="{ 'badge-ghost': status == 'draft', 'badge-primary': status == 'active' }"
+                :class="{ 'badge-accent': status == 'draft', 'badge-success': status == 'active' }"
             >
                 {{ status }}
             </div>
