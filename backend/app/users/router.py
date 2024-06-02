@@ -5,12 +5,13 @@ from fastapi_pagination.ext.sqlalchemy import paginate
 from sqlalchemy import select
 
 from app.auth.dependencies import get_current_active_admin, is_user_active
+from app.auth.security import create_salt_and_hashed_password, verify_password
 from app.config import get_settings
 from app.database import DependsDB
 
 from .enums import RoleEnum
 from .models import User
-from .schemas import UpdateUserModel, UserPublic
+from .schemas import PasswordUpdateRequest, UpdateUserModel, UserPublic
 from .services import get_user_by_username
 
 router = r = APIRouter(prefix="/users", tags=["users"])
@@ -44,10 +45,7 @@ async def get_user(db: DependsDB, username: str):
     return user_db
 
 
-@r.put(
-    "",
-    status_code=status.HTTP_200_OK,
-)
+@r.put("", status_code=status.HTTP_200_OK)
 async def update_users(
     db: DependsDB, current_user: is_user_active, username: str, new_data: UpdateUserModel
 ):
@@ -108,3 +106,22 @@ async def update_users(
     db.commit()
     db.refresh(user_db)
     return {"detail": "user berhasil di update"}
+
+
+@r.post("/new-password", status_code=status.HTTP_200_OK)
+def set_new_password(db: DependsDB, current_user: is_user_active, password: PasswordUpdateRequest):
+    is_valid = verify_password(
+        password=password.password,
+        salt=str(current_user.salt),
+        hashed_pw=str(current_user.password),
+    )
+    if not is_valid:
+        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "password tidak sama")
+
+    new_pass = create_salt_and_hashed_password(password=password.new_password)
+
+    current_user.password = new_pass.password
+    current_user.salt = new_pass.salt
+    db.commit()
+    db.refresh(current_user)
+    return {"detail": "Mengganti password selesai"}

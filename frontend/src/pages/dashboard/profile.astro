@@ -1,0 +1,20 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import ProfileUser from '@/components/Profile/ProfileUser.vue'
+import ChangePassword from '@/components/Profile/ChangePassword.vue'
+import { users } from '@/lib/users'
+
+const user = await users.getDetail(Astro)
+---
+
+<ProtectedLayout title="Profile" accessPage="all">
+    <div class="space-y-8">
+        <ProfileUser user={user} client:load />
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Change Password</h2>
+                <ChangePassword client:load />
+            </div>
+        </div>
+    </div>
+</ProtectedLayout>

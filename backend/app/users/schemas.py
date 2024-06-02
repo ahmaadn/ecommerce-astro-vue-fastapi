@@ -13,7 +13,7 @@ class UserBase(BaseModel):
 
 
 class UserCreateModel(UserBase):
-    password: str = Field(min_length=5)
+    password: str = Field(min_length=8)
 
 
 class UserPublic(UserBase):
@@ -25,7 +25,7 @@ class UserPublic(UserBase):
 
 
 class PasswordUpdateModel(BaseModel):
-    password: str = Field(min_length=5)
+    password: str = Field(min_length=8)
     salt: str
 
 
@@ -36,3 +36,8 @@ class UpdateUserModel(BaseModel):
     no_hp: str | None = Field(default=None, max_length=20)
     is_aktif: bool | None = Field(default=None)
     role: RoleEnum | None = Field(default=None)
+
+
+class PasswordUpdateRequest(BaseModel):
+    password: str
+    new_password: str = Field(min_length=8)

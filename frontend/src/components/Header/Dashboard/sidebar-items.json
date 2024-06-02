@@ -23,15 +23,8 @@
         "url": "/dashboard/wishlist"
     },
     {
-        "name": "Settings",
-        "icon": "mdi:settings-outline",
-        "submenu": [
-            {
-                "name": "Profile",
-                "url": "/dashboard/profile",
-                "icon": "mdi:account-circle-outline"
-            },
-            { "name": "Address", "url": "/dashboard/address", "icon": "mdi:address-marker-outline" }
-        ]
+        "name": "Profile",
+        "url": "/dashboard/profile",
+        "icon": "mdi:account-circle-outline"
     }
 ]
