@@ -1,5 +1,5 @@
 ---
-import FormSignup from '@/components/Form/FormSignup.vue'
+import SignupForm from '@/components/Auth/Signup.vue'
 import BaseLayout from '../layouts/BaseLayout.astro'
 ---
 
@@ -15,7 +15,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                     </p>
                 </div>
                 <div class="grid gap-4">
-                    <FormSignup client:load />
+                    <SignupForm urlSuccress="/signin" client:load />
                 </div>
             </div>
         </div>

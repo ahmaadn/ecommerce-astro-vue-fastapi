@@ -70,7 +70,7 @@ async def update_users(
     if new_data.email:
         email_user_db = (
             db.query(User)
-            .where(User.email == new_data.email, User.user_id != current_user.user_id)
+            .where(User.email == new_data.email, User.user_id != user_db.user_id)
             .first()
         )
         if email_user_db:
@@ -85,17 +85,17 @@ async def update_users(
     if new_data.username:
         email_user_db = (
             db.query(User)
-            .where(User.username == new_data.username, User.user_id != current_user.user_id)
+            .where(User.username == new_data.username, User.user_id != user_db.user_id)
             .first()
         )
         if email_user_db:
             raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "email already in use")
 
     # Cek menggganti role
-    if new_data.role and current_user.role == RoleEnum.ADMIN and new_data.role == RoleEnum.USER:  # type: ignore
+    if new_data.role and user_db.role == RoleEnum.ADMIN and new_data.role == RoleEnum.USER:  # type: ignore
         other_admin_db = (
             db.query(User)
-            .where(User.role == new_data.role, User.user_id != current_user.user_id)
+            .where(User.role == new_data.role, User.user_id != user_db.user_id)
             .first()
         )
 

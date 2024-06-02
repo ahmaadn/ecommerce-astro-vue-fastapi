@@ -15,7 +15,6 @@ const headers: Header[] = [
 
 const items = ref<Item[]>([])
 const selectedkategory = ref<Number>(0)
-const { headers: headersAuth } = auth.authorize().httpOptions
 
 const validationSchema = toTypedSchema(
     z.object({
@@ -67,6 +66,7 @@ const onCancel = () => {
 }
 
 const onCreate = async (values: String) => {
+    const { headers: headersAuth } = auth.authorize().httpOptions
     await axios
         .post(
             `${import.meta.env.PUBLIC_BACKEND_API}/categories`,
@@ -86,6 +86,7 @@ const onCreate = async (values: String) => {
 }
 
 const onUpdate = async (values: String) => {
+    const { headers: headersAuth } = auth.authorize().httpOptions
     await axios
         .put(
             `${import.meta.env.PUBLIC_BACKEND_API}/categories`,

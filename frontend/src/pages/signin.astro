@@ -1,5 +1,5 @@
 ---
-import FormSignin from '@/components/Form/FormSignin.vue'
+import SigninForm from '@/components/Auth/Signin.vue'
 import BaseLayout from '../layouts/BaseLayout.astro'
 ---
 
@@ -15,7 +15,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                     </p>
                 </div>
                 <div class="grid gap-4">
-                    <FormSignin client:load />
+                    <SigninForm client:load />
                 </div>
                 <div class="mt-4 text-center text-sm">
                     Don't have an account?
