@@ -3,7 +3,7 @@ import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
 import EditProduct from '@/components/Products/DetailProduct/EditProduct.vue'
 import { getProductByID } from '@/lib/products'
 
-const { id } = Astro.params
+const id = Astro.url.searchParams.get('product') || ''
 
 if (!id) {
     return new Response(null, {

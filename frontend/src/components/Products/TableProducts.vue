@@ -103,7 +103,9 @@ watch(
         </template>
 
         <template #item-action="{ barang_id }">
-            <a :href="`/dashboard/products/details/${barang_id}`" class="btn btn-ghost btn-xs"
+            <a
+                :href="`/dashboard/products/details?product=${barang_id}`"
+                class="btn btn-ghost btn-xs"
                 >details</a
             >
         </template>
