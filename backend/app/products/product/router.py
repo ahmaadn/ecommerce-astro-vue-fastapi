@@ -81,7 +81,7 @@ async def barang_create(
 ):
     path_gambar = await handle_file_upload(gambar)
     await create_barang(db, nama, deskripsi, harga, status, path_gambar, kategory_id)
-    return {"message": "Product Telah dibuat"}
+    return {"detail": "Product Telah dibuat"}
 
 
 @r.get("/{barang_id}", response_model=DetailBarangResponeModel, status_code=status.HTTP_200_OK)
@@ -102,7 +102,7 @@ async def update_image_product(
     barang.file_gambar = path_gambar
     db.commit()
     db.refresh(barang)
-    return {"details": "Gambar telah diupdate"}
+    return {"detail": "Gambar telah diupdate"}
 
 
 @r.delete("", status_code=status.HTTP_200_OK, dependencies=[Depends(get_current_active_admin)])
@@ -121,7 +121,7 @@ async def delete_barang(db: DependsDB, barang_id: int):
     barang = await get_barang(db, barang_id)
     db.delete(barang)
     db.commit()
-    return {"details": "pesanan telah berhasil"}
+    return {"detail": "pesanan telah berhasil"}
 
 
 @r.put("", dependencies=[Depends(get_current_active_admin)])
@@ -133,4 +133,4 @@ async def barang_update(db: DependsDB, barang_id: int, new_barang: BarangUpdateM
 
     db.commit()
     db.refresh(barang_db)
-    return {"details": "barang berhasil di update"}
+    return {"detail": "barang berhasil di update"}

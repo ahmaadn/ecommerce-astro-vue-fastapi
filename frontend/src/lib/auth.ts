@@ -58,10 +58,11 @@ const auth = {
         })
     },
     register: async (values: {
-        name: string
+        nama: string
         username: string
         email: string
         password: string
+        no_hp?: string
     }) => {
         return new Promise<AxiosResponse<any, any>>((resolve, reject) => {
             axios

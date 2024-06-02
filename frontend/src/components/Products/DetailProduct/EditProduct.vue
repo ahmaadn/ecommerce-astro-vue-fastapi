@@ -43,7 +43,7 @@ const onSumbit = form.handleSubmit(async (values) => {
         })
         .then((res) => {
             if (res.status == 200) {
-                alert(res.data)
+                alert('Data berhasil di update')
             }
         })
         .catch((e) => {

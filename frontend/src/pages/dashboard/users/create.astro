@@ -1,0 +1,14 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import CreateUser from '@/components/Users/CreateUser.vue'
+---
+
+<ProtectedLayout title="Create Product" accessPage="admin">
+    <div class="card bg-base-100 p-6 shadow-xl md:p-8">
+        <div class="text-2xl font-semibold">Buat User</div>
+        <div class="divider"></div>
+        <div>
+            <CreateUser client:load />
+        </div>
+    </div>
+</ProtectedLayout>

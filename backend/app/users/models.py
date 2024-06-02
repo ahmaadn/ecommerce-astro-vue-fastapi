@@ -21,4 +21,4 @@ class User(Base):
     role = Column(Enum(RoleEnum), nullable=False, default=RoleEnum.USER)
 
     dibuat_at = Column(DateTime, default=datetime.now(UTC), server_default=func.now())
-    diupdate_at = Column(DateTime, default=datetime.now(UTC), onupdate=func.now)
+    diupdate_at = Column(DateTime, default=datetime.now(UTC), onupdate=func.now())

@@ -1,0 +1,22 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import TableUsers from '@/components/Users/TableUsers.vue'
+import { Icon } from 'astro-icon/components'
+import '@/styles/tables.css'
+---
+
+<ProtectedLayout title="Products" accessPage="admin">
+    <div class="card flex flex-col bg-base-100 p-6 shadow-xl md:p-8">
+        <div class="flex w-full justify-between">
+            <div class="text-2xl font-semibold">List Users</div>
+            <a href="/dashboard/users/create" class="btn btn-success btn-sm text-success-content">
+                <Icon name="mdi:add-circle-outline" />
+                Tambah</a
+            >
+        </div>
+        <div class="divider"></div>
+        <div>
+            <TableUsers client:load />
+        </div>
+    </div>
+</ProtectedLayout>

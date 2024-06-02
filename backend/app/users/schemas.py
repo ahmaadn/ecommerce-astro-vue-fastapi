@@ -27,3 +27,12 @@ class UserPublic(UserBase):
 class PasswordUpdateModel(BaseModel):
     password: str = Field(min_length=5)
     salt: str
+
+
+class UpdateUserModel(BaseModel):
+    nama: str | None = Field(default=None, max_length=100)
+    username: str | None = Field(default=None, max_length=100)
+    email: EmailStr | None = Field(default=None)
+    no_hp: str | None = Field(default=None, max_length=20)
+    is_aktif: bool | None = Field(default=None)
+    role: RoleEnum | None = Field(default=None)

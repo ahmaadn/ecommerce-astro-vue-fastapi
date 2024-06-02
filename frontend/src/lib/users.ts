@@ -1,6 +1,5 @@
 import type { AstroGlobal } from 'astro'
 import { auth } from './auth'
-import type { AxiosResponse } from 'axios'
 import axios from 'axios'
 import type { UserDetail } from '@/types'
 

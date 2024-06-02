@@ -1,0 +1,42 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import UpdateUser from '@/components/Users/UpdateUser.vue'
+import axios from 'axios'
+import { auth } from '@/lib/auth'
+
+const username = Astro.url.searchParams.get('username') || ''
+
+if (!username) {
+    return new Response(null, {
+        status: 404,
+        statusText: 'not found',
+    })
+}
+const { headers: headerAuth } = auth.authorize(Astro).httpOptions
+let user
+
+await axios
+    .get(`${import.meta.env.PUBLIC_BACKEND_API}/users/details`, {
+        params: { username },
+        headers: { ...headerAuth },
+    })
+    .then((res) => {
+        if (res.status == 200) {
+            user = res.data
+        }
+    })
+    .catch((e) => {
+        console.error(e)
+    })
+
+if (!user) {
+    return new Response(null, {
+        status: 404,
+        statusText: 'not found',
+    })
+}
+---
+
+<ProtectedLayout title="detail user" accessPage="admin">
+    <UpdateUser client:load user={user} />
+</ProtectedLayout>

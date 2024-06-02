@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { auth } from '@/lib/auth'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
@@ -28,9 +27,7 @@ const onSubmit = form.handleSubmit((values) => {
     auth.register(values)
         .then((respones) => {
             if (respones.status >= 200 && respones.status <= 300) {
-                setTimeout(() => {
-                    window.location.href = '/signin'
-                }, 600)
+                window.location.href = '/dashboard/users'
             } else if (respones.status == 406) {
                 console.log('Email sudah ada yang pake')
             }
@@ -48,7 +45,6 @@ const onSubmit = form.handleSubmit((values) => {
         <Input name="email" label="Email" type="email" />
         <Input name="np_hp" label="Nomer handphone" type="number" />
         <Input name="password" label="Password" type="password" />
-        <button type="submit" class="btn btn-secondary w-full" :disabled="loading">Submit</button>
         <button type="submit" class="btn btn-secondary w-full" :disabled="loading">Submit</button>
     </form>
 </template>
