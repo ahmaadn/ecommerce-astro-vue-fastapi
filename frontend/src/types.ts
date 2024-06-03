@@ -58,3 +58,14 @@ export interface PageResultItems<T> {
     size: number
     pages: number
 }
+// export interface ProvinsiResult {
+
+// }
+
+// export interface AddressResult {
+//     alamat_id: number
+//     kabupaten: string
+//     kelurahan: string
+//     zip_code: string
+//     baris_alamat: string
+// }

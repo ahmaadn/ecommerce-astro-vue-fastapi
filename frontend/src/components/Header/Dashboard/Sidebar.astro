@@ -10,15 +10,15 @@ interface Props {
 const { permission } = Astro.props
 ---
 
-<div class="flex h-screen w-80 flex-col border-r border-base-200 bg-base-100 text-base-content">
-    <a
-        class="group link-hover link inline-flex items-center gap-2 border-b border-base-200 p-4 text-2xl font-semibold"
-        href="/"
-    >
-        <Icon name="mdi:shop" size={48} class="text-secondary" />
+<aside
+    class="flex min-h-screen w-80 flex-col overflow-y-auto border-r border-base-200 bg-neutral text-neutral-content"
+>
+    <a class="group sticky top-0 inline-flex items-center gap-2 p-4 text-xl font-semibold" href="/">
+        <Icon name="mdi:shop" size={32} class="text-primary" />
         Online Shop
     </a>
-    <ul class="overflow-y menu">
+    <div class="divider m-0 before:bg-neutral-content after:bg-neutral-content"></div>
+    <ul class="menu">
         {items.map((item) => <SidebarItem currPermission={permission} {...item} />)}
     </ul>
-</div>
+</aside>

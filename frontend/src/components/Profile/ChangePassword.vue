@@ -26,7 +26,6 @@ const validationSchema = toTypedSchema(
 
 const form = useForm({ validationSchema })
 const handleSubmit = form.handleSubmit(async (values) => {
-    alert(JSON.stringify(values))
     const { httpOptions } = auth.authorize()
     await axios
         .post(`${import.meta.env.PUBLIC_BACKEND_API}/users/new-password`, values, {

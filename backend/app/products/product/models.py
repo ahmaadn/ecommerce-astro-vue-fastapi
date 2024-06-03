@@ -20,7 +20,9 @@ class Barang(Base):
     status = Column(Enum(StatusEnum), nullable=False, default=StatusEnum.ACTIVE)
 
     dibuat_at = Column(DateTime, default=datetime.now(UTC), server_default=func.now())
-    diupdate_at = Column(DateTime, default=datetime.now(UTC), server_default=func.now())
+    diupdate_at = Column(
+        DateTime, default=datetime.now(UTC), server_default=func.now(), onupdate=func.now()
+    )
 
     kategori = Relationship("Kategori", backref="barang")
     list_varian = Relationship(

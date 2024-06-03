@@ -15,6 +15,10 @@ const props = defineProps({
 })
 
 const { value, errorMessage } = useField(() => props.name, undefined)
+const emit = defineEmits(['change'])
+const onChnage = (e: Event) => {
+    emit('change', e)
+}
 </script>
 
 <template>
@@ -22,7 +26,12 @@ const { value, errorMessage } = useField(() => props.name, undefined)
         <label class="label" v-if="label">
             <span class="label-text font-semibold">{{ label }}</span>
         </label>
-        <select class="select select-bordered" v-model="value" :disabled="props.disabled">
+        <select
+            class="select select-bordered"
+            v-model="value"
+            :disabled="props.disabled"
+            @change="onChnage"
+        >
             <slot />
         </select>
         <div v-if="errorMessage" class="label">
