@@ -28,11 +28,9 @@ const validationSchema = toTypedSchema(
 const form = useForm({ validationSchema })
 
 const handleSubmit = form.handleSubmit(async (values) => {
-    // alert(values)
     const { headers: headersAuth } = auth.authorize().httpOptions
-    const methode = hasAddress.value ? 'PUT' : 'POST'
     await axios(`${import.meta.env.PUBLIC_BACKEND_API}/addresses`, {
-        method: methode,
+        method: hasAddress.value ? 'PUT' : 'POST',
         data: values,
         headers: { 'Content-Type': 'application/json', ...headersAuth },
     })
@@ -116,6 +114,7 @@ const getUserAddress = async () => {
                 zip_code: data.zip_code,
                 baris_alamat: data.baris_alamat,
             })
+            hasAddress.value = true
         })
         .catch((e) => {
             hasAddress.value = false
@@ -155,7 +154,7 @@ onMounted(async () => {
                 {{ value.nama_kabupaten }}
             </option>
         </Select>
-        <Select name="kecamatan_id" label="Kelurahan*">
+        <Select name="kecamatan_id" label="Kecamatan*">
             <option
                 v-for="(value, index) in kecamatan"
                 :value="value.kecamatan_id"

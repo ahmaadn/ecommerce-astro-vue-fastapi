@@ -1,6 +1,6 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.auth.dependencies import is_user_active
+from app.auth.dependencies import get_current_active_admin, is_user_active
 from app.database import DependsDB
 
 from .models import Alamat, Kabupaten, Kecamatan, Provinsi
@@ -65,6 +65,8 @@ def update_alamat_user(db: DependsDB, current_user: is_user_active, alamat: Upda
     for field, value in alamat.model_dump(exclude_none=True).items():
         setattr(alamat_db, field, value)
 
+    db.commit()
+    db.refresh(provinsi_db)
     return {"detail": "alamat sudah diupdate"}
 
 
@@ -93,3 +95,14 @@ def get_kecamatan(db: DependsDB, kabupaten_id: int):
         .all()
     )
     return kecamatan
+
+
+@r.put("/ongkir", status_code=status.HTTP_200_OK, dependencies=[Depends(get_current_active_admin)])
+def update_ongkir(db: DependsDB, provinsi_id: int, ongkir: int):
+    provinsi_db = db.query(Provinsi).where(Provinsi.provinsi_id == provinsi_id).first()
+    if not provinsi_db:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "provinsi tidak ditemukan")
+    provinsi_db.ongkir = ongkir
+    db.commit()
+    db.refresh(provinsi_db)
+    return {"detail": "Ongkir telah diubah"}

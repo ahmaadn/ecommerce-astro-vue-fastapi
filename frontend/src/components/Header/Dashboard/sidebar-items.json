@@ -1,12 +1,18 @@
 [
     { "name": "Dashboard", "url": "/dashboard", "icon": "mdi:rhombus-split-outline" },
     {
-        "name": "users",
+        "name": "Users",
         "url": "/dashboard/users",
         "permission": "admin",
         "icon": "mdi:account-group-outline"
     },
-    { "name": "orders", "url": "/dashboard/orders", "icon": "mdi:local-shipping" },
+    { "name": "Pesanan", "url": "/dashboard/orders", "icon": "mdi:local-shipping" },
+    {
+        "name": "Ongkir",
+        "permission": "admin",
+        "url": "/dashboard/postage",
+        "icon": "mdi:local-shipping"
+    },
     {
         "name": "Products",
         "permission": "admin",
@@ -26,5 +32,6 @@
         "name": "Profile",
         "url": "/dashboard/profile",
         "icon": "mdi:account-circle-outline"
-    }
+    },
+    { "name": "Histori Transaksi", "url": "/dashboard/transaction", "icon": "mdi:local-shipping" }
 ]
