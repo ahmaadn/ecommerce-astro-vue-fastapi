@@ -1,0 +1,8 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import ListProductCart from '@/components/Cart/ListProductCart.vue'
+---
+
+<ProtectedLayout title="Cart">
+    <ListProductCart client:load />
+</ProtectedLayout>

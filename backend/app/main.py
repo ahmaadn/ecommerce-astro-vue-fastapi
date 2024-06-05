@@ -6,8 +6,8 @@ from starlette.responses import FileResponse
 from app.addresses.models import *  # noqa: F403
 from app.addresses.router import router as addresses_router
 from app.auth.router import router as auth_router
-from app.carts.cart.models import *  # noqa: F403
-from app.carts.cart_detail.models import *  # noqa: F403
+from app.carts.models import *  # noqa: F403
+from app.carts.router import router as cart_router
 from app.category.models import *  # noqa: F403
 from app.category.router import router as category_router
 from app.config import get_settings
@@ -35,6 +35,7 @@ api_router.include_router(category_router)
 api_router.include_router(product_router)
 api_router.include_router(varian_router)
 api_router.include_router(addresses_router)
+api_router.include_router(cart_router)
 
 
 @api_router.get("/static/uploads/{path}")

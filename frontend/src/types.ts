@@ -58,14 +58,15 @@ export interface PageResultItems<T> {
     size: number
     pages: number
 }
-// export interface ProvinsiResult {
 
-// }
-
-// export interface AddressResult {
-//     alamat_id: number
-//     kabupaten: string
-//     kelurahan: string
-//     zip_code: string
-//     baris_alamat: string
-// }
+export interface CartDetailRespones {
+    keranjang_id: number
+    varian_barang_id: number
+    jumlah: number
+    variant_barang: {
+        varian_barang_id: number
+        ukuran: string
+        stok: number
+        barang: ProductResult
+    }
+}

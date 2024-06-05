@@ -4,16 +4,16 @@ import type { ProductResult } from '@/types'
 interface Props {
     product: ProductResult
 }
-// static/uploads/21f30ff218f542c581c6ce98cf4c04a0.jpg
+
 const { product } = Astro.props
 const imagePath = `${import.meta.env.PUBLIC_BACKEND_API}/${product.file_gambar}`
 ---
 
 <a
     href=`/product/${product.barang_id}`
-    class="group card card-compact w-full bg-base-100 shadow-xl"
+    class="group card card-compact w-full border border-base-200 bg-base-100 shadow-lg"
 >
-    <figure class="relative min-h-80 lg:h-80">
+    <figure class="relative min-h-96 lg:h-96">
         <img
             src={imagePath}
             alt={product.nama_barang}

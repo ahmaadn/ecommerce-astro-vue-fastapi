@@ -23,10 +23,10 @@
         ]
     },
     {
-        "name": "Wishlist",
+        "name": "keranjang",
         "permission": "user",
         "icon": "mdi:cart-outline",
-        "url": "/dashboard/wishlist"
+        "url": "/dashboard/cart"
     },
     {
         "name": "Profile",

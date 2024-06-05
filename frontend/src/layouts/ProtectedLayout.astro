@@ -22,7 +22,7 @@ const show = (accessPage == 'all' || accessPage == currPermission) && isLogin
 
 {
     currPermission != 'none' ? (
-        <BaseLayout {...Astro.props}>
+        <BaseLayout class="bg-base-200" {...Astro.props}>
             <main>
                 <Header>
                     <Sidebar slot="sidebar" permission={currPermission} />
