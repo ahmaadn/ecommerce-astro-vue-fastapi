@@ -79,11 +79,11 @@ const handleSubmit = form.handleSubmit(async (values) => {
         )
         .then((res) => {
             alert(res.data.detail)
+            window.location.href = '/dashboard/orders'
         })
         .catch((e) => {
             if (e.response) {
                 alert(e.response.data.detail)
-                window.location.href = '/dashboard/orders'
             } else {
                 console.error(e)
             }

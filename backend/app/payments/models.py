@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, Enum, ForeignKey, Integer, func
+from sqlalchemy import Column, DateTime, Enum, ForeignKey, Integer, String, func
 from sqlalchemy.orm import Relationship
 
 from app.database import Base
@@ -9,7 +9,7 @@ from .enums import PaymentStatus
 class Pembayaran(Base):
     __tablename__ = "pembayaran"
 
-    pembayaran_id = Column(Integer, primary_key=True, autoincrement=True)
+    pembayaran_id = Column(String(255), primary_key=True, unique=True)
     pesanan_id = Column(Integer, ForeignKey("pesanan.pesanan_id"), nullable=False)
     total_dibayar = Column(Integer, nullable=False)
     status_bayar = Column(Enum(PaymentStatus), nullable=False, default=PaymentStatus.PENDING)

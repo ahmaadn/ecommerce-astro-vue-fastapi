@@ -1,7 +1,9 @@
+from uuid import uuid4
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlalchemy import paginate
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from app.addresses.models import Alamat
 from app.auth.dependencies import get_current_active_admin, get_current_active_user, is_user_active
@@ -81,9 +83,11 @@ def checkout(db: DependsDB, user: is_user_active):
 
     # Pembayaran
     pembayaran_db = Pembayaran(
+        pembayaran_id=f"pay-{uuid4().hex}",
         pesanan_id=pesanan_db.pesanan_id,
         total_dibayar=total_harga,
         status_bayar=PaymentStatus.COMPLETED,
+        dibayar_at=func.now(),
     )
     db.add(pembayaran_db)
     db.commit()

@@ -46,7 +46,7 @@ onMounted(async () => {
                     )
                 }}</span>
             </div>
-            <div class="inline-flex">
+            <div class="inline-flex text-sm">
                 <p>Ongkir</p>
                 <span class="text-end">{{
                     Intl.NumberFormat('id', { style: 'currency', currency: 'IDR' }).format(ongkir)
