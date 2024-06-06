@@ -1,10 +1,10 @@
 ---
-import ProtectedLayout from '../../layouts/ProtectedLayout.astro'
+import DashboardLayout from '../../layouts/DashboardLayout.astro'
 import { users } from '@/lib/users'
 const user = await users.getDetail(Astro)
 ---
 
-<ProtectedLayout title="dashboard">
+<DashboardLayout title="dashboard">
     <br />
     {user?.nama}
     <br />
@@ -19,4 +19,4 @@ const user = await users.getDetail(Astro)
     {user?.dibuat_at}
     <br />
     {user?.diupdate_at}
-</ProtectedLayout>
+</DashboardLayout>

@@ -1,8 +1,8 @@
 ---
-import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import DashboardLayout from '@/layouts/DashboardLayout.astro'
 import ListProductCart from '@/components/Cart/ListProductCart.vue'
 ---
 
-<ProtectedLayout title="Cart">
+<DashboardLayout title="Cart">
     <ListProductCart client:load />
-</ProtectedLayout>
+</DashboardLayout>

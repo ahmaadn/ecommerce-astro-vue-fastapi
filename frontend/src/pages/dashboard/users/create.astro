@@ -1,9 +1,9 @@
 ---
-import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import DashboardLayout from '@/layouts/DashboardLayout.astro'
 import SignupForm from '@/components/Auth/Signup.vue'
 ---
 
-<ProtectedLayout title="Create Product" accessPage="admin">
+<DashboardLayout title="Create Product" accessPage="admin">
     <div class="card bg-base-100 p-6 shadow-xl md:p-8">
         <div class="text-2xl font-semibold">Buat User</div>
         <div class="divider"></div>
@@ -11,4 +11,4 @@ import SignupForm from '@/components/Auth/Signup.vue'
             <SignupForm urlSuccress="/dashboard/users" client:load />
         </div>
     </div>
-</ProtectedLayout>
+</DashboardLayout>

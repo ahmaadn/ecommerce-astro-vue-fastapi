@@ -1,5 +1,5 @@
 ---
-import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import DashboardLayout from '@/layouts/DashboardLayout.astro'
 import UpdateUser from '@/components/Users/UpdateUser.vue'
 import axios from 'axios'
 import { auth } from '@/lib/auth'
@@ -41,6 +41,6 @@ if (!user) {
 }
 ---
 
-<ProtectedLayout title="detail user" accessPage="admin">
+<DashboardLayout title="detail user" accessPage="admin">
     <UpdateUser client:load user={user} />
-</ProtectedLayout>
+</DashboardLayout>

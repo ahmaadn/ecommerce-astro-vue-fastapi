@@ -1,0 +1,42 @@
+---
+import { auth } from '@/lib/auth'
+import BaseLayout from './BaseLayout.astro'
+import Header from '@/components/Header/Dashboard/Header.astro'
+import Sidebar from '@/components/Header/Dashboard/Sidebar.astro'
+import { cn } from '@/lib/utils'
+
+interface Props {
+    title: string
+    accessPage?: 'admin' | 'user' | 'all'
+    class?: string
+}
+
+const { accessPage = 'all', class: className = '' } = Astro.props
+const isLogin = auth.isLogin(Astro)
+if (!isLogin) {
+    auth.logOut(Astro)
+}
+const currPermission = isLogin ? auth.payLoad(Astro).permission : 'none'
+const show = (accessPage == 'all' || accessPage == currPermission) && isLogin
+---
+
+{
+    currPermission != 'none' ? (
+        <BaseLayout class="bg-base-200" {...Astro.props}>
+            <main>
+                <Header>
+                    <Sidebar slot="sidebar" permission={currPermission} />
+                    {show ? (
+                        <div class={cn('main min-h-full bg-base-200 p-4 md:p-6', className)}>
+                            <slot />
+                        </div>
+                    ) : (
+                        <div>404</div>
+                    )}
+                </Header>
+            </main>
+        </BaseLayout>
+    ) : (
+        <div>404</div>
+    )
+}

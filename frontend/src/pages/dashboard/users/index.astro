@@ -1,11 +1,11 @@
 ---
-import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import DashboardLayout from '@/layouts/DashboardLayout.astro'
 import TableUsers from '@/components/Users/TableUsers.vue'
 import { Icon } from 'astro-icon/components'
 import '@/styles/tables.css'
 ---
 
-<ProtectedLayout title="Products" accessPage="admin">
+<DashboardLayout title="Products" accessPage="admin">
     <div class="card flex flex-col bg-base-100 p-6 shadow-xl md:p-8">
         <div class="flex w-full justify-between">
             <div class="text-2xl font-semibold">List Users</div>
@@ -19,4 +19,4 @@ import '@/styles/tables.css'
             <TableUsers client:load />
         </div>
     </div>
-</ProtectedLayout>
+</DashboardLayout>

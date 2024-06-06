@@ -1,9 +1,9 @@
 ---
-import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import DashboardLayout from '@/layouts/DashboardLayout.astro'
 import TableOngkir from '@/components/TableOngkir.vue'
 ---
 
-<ProtectedLayout title="Products" accessPage="admin">
+<DashboardLayout title="Products" accessPage="admin">
     <div class="card bg-base-100">
         <div class="card-body">
             <div class="card-title">List ongkir</div>
@@ -13,4 +13,4 @@ import TableOngkir from '@/components/TableOngkir.vue'
             </div>
         </div>
     </div>
-</ProtectedLayout>
+</DashboardLayout>

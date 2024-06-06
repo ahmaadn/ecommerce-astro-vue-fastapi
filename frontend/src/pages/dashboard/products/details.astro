@@ -1,5 +1,5 @@
 ---
-import ProtectedLayout from '@/layouts/ProtectedLayout.astro'
+import DashboardLayout from '@/layouts/DashboardLayout.astro'
 import EditProduct from '@/components/Products/EditProduct.vue'
 import { getProductByID } from '@/lib/products'
 
@@ -20,6 +20,6 @@ if (!product) {
 }
 ---
 
-<ProtectedLayout title="" accessPage="admin">
+<DashboardLayout title="" accessPage="admin">
     <EditProduct client:load product={product} />
-</ProtectedLayout>
+</DashboardLayout>
