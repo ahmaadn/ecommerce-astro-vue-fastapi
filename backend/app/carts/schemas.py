@@ -9,7 +9,7 @@ class AddToCartModel(BaseModel):
     jumlah: int
 
 
-class _VariantBarangDetail(BaseModel):
+class VariantBarangDetail(BaseModel):
     varian_barang_id: int
     ukuran: str
     stok: int
@@ -22,7 +22,7 @@ class CartsResponse(BaseModel):
     varian_barang_id: int
     jumlah: int
 
-    variant_barang: _VariantBarangDetail
+    variant_barang: VariantBarangDetail
 
 
 class UpdateCartModel(BaseModel):

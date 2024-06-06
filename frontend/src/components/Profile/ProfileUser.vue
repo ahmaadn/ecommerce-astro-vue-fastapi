@@ -24,10 +24,7 @@ const form = useForm({ validationSchema })
 const onSumbit = form.handleSubmit(async (values) => {
     const { headers: headersAuth } = auth.authorize().httpOptions
     await axios
-        .put(`${import.meta.env.PUBLIC_BACKEND_API}/users`, values, {
-            params: {
-                username: props.user.username,
-            },
+        .put(`${import.meta.env.PUBLIC_BACKEND_API}/users/me`, values, {
             headers: {
                 'Content-Type': 'application/json',
                 ...headersAuth,
@@ -40,7 +37,7 @@ const onSumbit = form.handleSubmit(async (values) => {
                     auth.logOut()
                     window.location.href = `/signin`
                 } else {
-                    window.location.href = `/dashboard/users/details?username=${props.user.username}`
+                    window.location.href = `/dashboard/profile`
                 }
             }
         })

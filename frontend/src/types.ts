@@ -59,14 +59,33 @@ export interface PageResultItems<T> {
     pages: number
 }
 
+export interface variantBarang {
+    varian_barang_id: number
+    ukuran: string
+    stok: number
+    barang: ProductResult
+}
+
 export interface CartDetailRespones {
     keranjang_id: number
     varian_barang_id: number
     jumlah: number
-    variant_barang: {
-        varian_barang_id: number
-        ukuran: string
-        stok: number
-        barang: ProductResult
-    }
+    variant_barang: variantBarang
+}
+
+export interface DetailPesananType {
+    detail_pesanan_id: number
+    varian_barang_id: number
+    jumlah_pesanan: number
+    harga_pesanan: number
+    varian_barang: variantBarang
+}
+
+export interface PesananRespones {
+    pesanan_id: number
+    total_harga: number
+    status: 'pending' | 'paid' | 'shipped' | 'completed' | 'cancelled'
+    dibuat_at: Date
+    ongkir: int
+    details_pesanan: DetailPesananType[]
 }

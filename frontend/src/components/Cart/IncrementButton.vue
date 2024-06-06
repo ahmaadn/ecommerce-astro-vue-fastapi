@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { auth } from '@/lib/auth'
 import axios from 'axios'
+import { auth } from '@/lib/auth'
 import { computed, toRef } from 'vue'
 
 const props = defineProps<{
@@ -58,6 +58,8 @@ const totalHarga = computed(() => harga.value * jumlah.value)
                 </svg>
             </button>
         </div>
-        <div class="font-xl">Rp. {{ totalHarga }}</div>
+        <div class="font-xl">
+            {{ Intl.NumberFormat('id', { style: 'currency', currency: 'IDR' }).format(totalHarga) }}
+        </div>
     </div>
 </template>

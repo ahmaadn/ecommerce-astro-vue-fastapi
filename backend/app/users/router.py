@@ -4,14 +4,14 @@ from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlalchemy import paginate
 from sqlalchemy import select
 
-from app.auth.dependencies import get_current_active_admin, is_user_active
+from app.auth.dependencies import get_current_active_admin, is_user_active, is_user_admin
 from app.auth.security import create_salt_and_hashed_password, verify_password
 from app.config import get_settings
 from app.database import DependsDB
 
 from .enums import RoleEnum
 from .models import User
-from .schemas import PasswordUpdateRequest, UpdateUserModel, UserPublic
+from .schemas import PasswordUpdateRequest, UpdateUserModel, UpdateUserModelAdmin, UserPublic
 from .services import get_user_by_username
 
 router = r = APIRouter(prefix="/users", tags=["users"])
@@ -22,6 +22,40 @@ async def get_user_by_id(current_user: is_user_active):
     return current_user
 
 
+@r.put("/me")
+async def update_akun_user(db: DependsDB, user: is_user_active, new_data: UpdateUserModel):
+    # Cek email sudah dipakai
+    if new_data.email:
+        email_user_db = (
+            db.query(User).where(User.email == new_data.email, User.user_id != user.user_id).first()
+        )
+        if email_user_db:
+            raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "email already in use")
+
+        try:
+            validate_email(new_data.email, test_environment=get_settings().DEBUG_MODE)
+        except EmailNotValidError as e:
+            raise HTTPException(status.HTTP_403_FORBIDDEN, "email tidak valid") from e
+
+    # Cek username sudah dipakai
+    if new_data.username:
+        email_user_db = (
+            db.query(User)
+            .where(User.username == new_data.username, User.user_id != user.user_id)
+            .first()
+        )
+        if email_user_db:
+            raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, "email already in use")
+
+    for field, value in new_data.model_dump(exclude_none=True).items():
+        setattr(user, field, value)
+
+    db.commit()
+    db.refresh(user)
+    return {"detail": "user berhasil di update"}
+
+
+# ADMIN ONLY
 @r.get(
     "",
     status_code=status.HTTP_200_OK,
@@ -45,17 +79,14 @@ async def get_user(db: DependsDB, username: str):
     return user_db
 
 
-@r.put("", status_code=status.HTTP_200_OK)
+@r.put(
+    "",
+    status_code=status.HTTP_200_OK,
+    dependencies=[Depends(get_current_active_admin)],
+)
 async def update_users(
-    db: DependsDB, current_user: is_user_active, username: str, new_data: UpdateUserModel
+    db: DependsDB, current_user: is_user_admin, username: str, new_data: UpdateUserModelAdmin
 ):
-    if (
-        current_user.role != RoleEnum.ADMIN
-        or current_user.username != username
-        and current_user.role == RoleEnum.USER
-    ):
-        raise HTTPException(status.HTTP_405_METHOD_NOT_ALLOWED, "Tidak punyak hak akses")
-
     # user_db =
     if current_user.username == username:  # type: ignore
         user_db = current_user

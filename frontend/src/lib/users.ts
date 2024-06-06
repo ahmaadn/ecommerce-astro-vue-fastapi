@@ -4,7 +4,7 @@ import axios from 'axios'
 import type { UserDetail } from '@/types'
 
 export const users = {
-    getDetail: async (Astro: AstroGlobal) => {
+    getDetail: async (Astro?: AstroGlobal) => {
         try {
             const { httpOptions } = auth.authorize(Astro)
             const respones = await axios.get(`${import.meta.env.PUBLIC_BACKEND_API}/users/me`, {

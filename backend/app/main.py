@@ -13,6 +13,7 @@ from app.category.router import router as category_router
 from app.config import get_settings
 from app.database import Base, engine
 from app.orders.order.models import *  # noqa: F403
+from app.orders.order.router import router as order_router
 from app.orders.order_detail.models import *  # noqa: F403
 from app.payments.models import *  # noqa: F403
 from app.products.product.models import *  # noqa: F403
@@ -36,6 +37,7 @@ api_router.include_router(product_router)
 api_router.include_router(varian_router)
 api_router.include_router(addresses_router)
 api_router.include_router(cart_router)
+api_router.include_router(order_router)
 
 
 @api_router.get("/static/uploads/{path}")

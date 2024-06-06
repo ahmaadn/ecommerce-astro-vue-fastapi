@@ -133,7 +133,13 @@ const checkout = () => {
         >
             <div class="inline-flex w-full justify-between text-sm font-semibold md:text-base">
                 <p>Sub total</p>
-                <p class="text-end">Rp {{ totalHarga }}</p>
+                <p class="text-end">
+                    {{
+                        Intl.NumberFormat('id', { style: 'currency', currency: 'IDR' }).format(
+                            totalHarga
+                        )
+                    }}
+                </p>
             </div>
             <p class="mb-4 text-sm md:text-base">Shipping and taxes calculated at checkout.</p>
             <button

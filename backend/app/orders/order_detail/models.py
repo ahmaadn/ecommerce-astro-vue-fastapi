@@ -15,5 +15,5 @@ class DetailPesanan(Base):
 
     ditambah_at = Column(DateTime, default=func.now(), server_default=func.now())
 
-    pesanan = Relationship("Pesanan", backref="detail_pesanan")
+    pesanan = Relationship("Pesanan", back_populates="details_pesanan")
     varian_barang = Relationship("VarianBarang", backref="detail_pesanan")

@@ -29,7 +29,7 @@ class PasswordUpdateModel(BaseModel):
     salt: str
 
 
-class UpdateUserModel(BaseModel):
+class UpdateUserModelAdmin(BaseModel):
     nama: str | None = Field(default=None, max_length=100)
     username: str | None = Field(default=None, max_length=100)
     email: EmailStr | None = Field(default=None)
@@ -41,3 +41,10 @@ class UpdateUserModel(BaseModel):
 class PasswordUpdateRequest(BaseModel):
     password: str
     new_password: str = Field(min_length=8)
+
+
+class UpdateUserModel(BaseModel):
+    nama: str | None = Field(default=None, max_length=100)
+    username: str | None = Field(default=None, max_length=100)
+    email: EmailStr | None = Field(default=None)
+    no_hp: str | None = Field(default=None, max_length=20)

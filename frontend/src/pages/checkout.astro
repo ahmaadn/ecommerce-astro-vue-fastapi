@@ -1,5 +1,12 @@
 ---
 import ProtectedLayout from '../layouts/ProtectedLayout.astro'
+import CheckoutForm from '@/components/Checkout/Checkout.vue'
 ---
 
-<ProtectedLayout title="Checkout" />
+<ProtectedLayout title="Checkout">
+    <div class="min-h-screen w-full bg-base-200">
+        <div class="container">
+            <CheckoutForm client:load />
+        </div>
+    </div>
+</ProtectedLayout>

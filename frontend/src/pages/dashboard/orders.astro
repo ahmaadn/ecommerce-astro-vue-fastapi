@@ -1,0 +1,17 @@
+---
+import DashboardLayout from '@/layouts/DashboardLayout.astro'
+import OrdersListUser from '@/components/Orders/OrdersListUser.vue'
+import { auth } from '@/lib/auth'
+import '@/styles/tables.css'
+const currPermission = auth.payLoad(Astro).permission
+---
+
+<DashboardLayout title="Orders">
+    <div class="card bg-base-100">
+        <div class="card-body">
+            <div class="card-title">Pesanan</div>
+            <div>Klik kolom untuk melihat detail pemesanan</div>
+            <OrdersListUser client:load permission={currPermission} />
+        </div>
+    </div>
+</DashboardLayout>
