@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth'
 import BaseLayout from './BaseLayout.astro'
 import Header from '@/components/Header/Dashboard/Header.astro'
 import Sidebar from '@/components/Header/Dashboard/Sidebar.astro'
+import NotFoundPage from '@/components/NotFoundPage.astro'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -31,12 +32,12 @@ const show = (accessPage == 'all' || accessPage == currPermission) && isLogin
                             <slot />
                         </div>
                     ) : (
-                        <div>404</div>
+                        <NotFoundPage />
                     )}
                 </Header>
             </main>
         </BaseLayout>
     ) : (
-        <div>404</div>
+        <NotFoundPage />
     )
 }

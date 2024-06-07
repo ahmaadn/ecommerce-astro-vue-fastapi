@@ -2,7 +2,7 @@
 import { auth } from '@/lib/auth'
 import BaseLayout from './BaseLayout.astro'
 import Header from '@/components/Header/MainHeader.astro'
-
+import NotFoundPage from '@/components/NotFoundPage.astro'
 interface Props {
     title: string
 }
@@ -23,6 +23,6 @@ if (!isLogin) {
             </main>
         </BaseLayout>
     ) : (
-        <div>404</div>
+        <NotFoundPage />
     )
 }
