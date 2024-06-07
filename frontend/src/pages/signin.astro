@@ -3,8 +3,30 @@ import SigninForm from '@/components/Auth/Signin.vue'
 import BaseLayout from '../layouts/BaseLayout.astro'
 ---
 
-<BaseLayout title="signin">
+<BaseLayout title="signin" class="bg-base-200">
     <main class="container">
+        <div class="flex min-h-screen items-center justify-center">
+            <div class="card w-full bg-base-100 shadow-xl">
+                <div class="card-body grid-cols-2 md:grid">
+                    <a
+                        class="card-title h-fit w-full text-center text-2xl font-bold md:text-left"
+                        href="/">ONLINE SHOP</a
+                    >
+                    <div>
+                        <h1 class="text-center text-2xl font-semibold">Login</h1>
+                        <p class="text-balance text-center text-muted-foreground">
+                            Masukkan nama pengguna atau email Anda di bawah ini untuk login ke akun
+                            Anda
+                        </p>
+                        <div class="grid gap-4">
+                            <SigninForm client:load />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- <main class="container">
         <div class="flex min-h-screen flex-col items-center justify-center gap-12">
             <a class="text-3xl font-bold" href="/">ONLINE SHOP</a>
             <div class="mx-auto grid w-full gap-6 sm:w-[350px]">
@@ -23,5 +45,5 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                 </div>
             </div>
         </div>
-    </main>
+    </main> -->
 </BaseLayout>

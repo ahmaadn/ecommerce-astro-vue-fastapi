@@ -35,8 +35,8 @@ const onSubmit = form.handleSubmit((values) => {
 
 <template>
     <form @submit="onSubmit">
-        <Input name="username" label="Username atau email" />
-        <Input name="password" type="password" label="Password" />
+        <Input name="username" label="Username atau email*" />
+        <Input name="password" type="password" label="Password*" />
         <button type="submit" class="btn btn-secondary w-full">Submit</button>
     </form>
 </template>

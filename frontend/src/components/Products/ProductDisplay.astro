@@ -1,6 +1,7 @@
 ---
 import type { ProductDetailResult } from '@/types'
 import ProductDisplayForm from './ProductDisplayForm.vue'
+import { rupiah } from '@/lib/utils'
 interface Props {
     product: ProductDetailResult
 }
@@ -16,7 +17,7 @@ const { kategori, list_varian } = product
     </figure>
     <div class="space-y-4">
         <h2 class="text-4xl font-bold">{product.nama_barang}</h2>
-        <p class="text-2xl font-semibold text-secondary">Rp {product.harga}</p>
+        <p class="text-2xl font-semibold text-secondary">{rupiah(product.harga)}</p>
         <a href=`/${kategori.kategori_id}` class="badge badge-primary">{kategori.nama_kategori}</a>
         <p>
             {product.deskripsi}

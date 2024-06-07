@@ -38,11 +38,11 @@ const onSubmit = form.handleSubmit((values) => {
 
 <template>
     <form @submit="onSubmit">
-        <Input name="nama" label="Nama Lengkap" />
-        <Input name="username" label="Username" />
-        <Input name="email" label="Email" type="email" />
+        <Input name="nama" label="Nama Lengkap*" />
+        <Input name="username" label="Username*" />
+        <Input name="email" label="Email*" type="email" />
         <Input name="np_hp" label="Nomer handphone" />
-        <Input name="password" label="Password" type="password" />
+        <Input name="password" label="Password*" type="password" />
         <button type="submit" class="btn btn-secondary w-full">Submit</button>
     </form>
 </template>

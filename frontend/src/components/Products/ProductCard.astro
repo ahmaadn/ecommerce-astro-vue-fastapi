@@ -1,5 +1,6 @@
 ---
 import type { ProductResult } from '@/types'
+import { rupiah } from '@/lib/utils'
 
 interface Props {
     product: ProductResult
@@ -32,7 +33,7 @@ const imagePath = `${import.meta.env.PUBLIC_BACKEND_API}/${product.file_gambar}`
     <div class="card-body z-10">
         <div class="card-title">
             <h class="group-hover:underline">{product.nama_barang}</h>
-            <p class="text-right text-base">{product.harga} IDR</p>
+            <p class="text-right text-base">{rupiah(product.harga)}</p>
         </div>
         <div class="badge badge-primary">{product.kategori.nama_kategori}</div>
     </div>
