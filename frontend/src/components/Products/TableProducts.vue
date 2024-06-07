@@ -2,7 +2,7 @@
 import { ref, watch, onMounted } from 'vue'
 import { getAllProducts } from '@/lib/products'
 import type { Header, Item, ServerOptions } from 'vue3-easy-data-table'
-import { tanggal } from '@/lib/utils'
+import { tanggal, rupiah } from '@/lib/utils'
 
 const pathImg = import.meta.env.PUBLIC_BACKEND_API
 const optionsServer = ref<ServerOptions>({
@@ -86,6 +86,9 @@ watch(
                     <div class="font-bold">{{ nama_barang }}</div>
                 </div>
             </div>
+        </template>
+        <template #item-harga="{harga}">
+            {{ rupiah(harga) }}
         </template>
         <template #item-dibuat_at="{ dibuat_at }">
             {{ tanggal(new Date(dibuat_at + 'Z')) }}
