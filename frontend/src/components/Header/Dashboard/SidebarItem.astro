@@ -19,14 +19,16 @@ const show = !permission || permission == currPermission
             {submenu ? (
                 <details open>
                     <summary>
-                        {icon && <Icon name={icon} size={24} class="text-primary" />}
+                        {icon && <Icon name={icon} size={24} class="text-neutral-content" />}
                         {name}
                     </summary>
                     <ul>
                         {submenu.map(({ name, url, icon }) => (
                             <li>
                                 <NavLink href={url}>
-                                    {icon && <Icon name={icon} size={24} class="text-primary" />}
+                                    {icon && (
+                                        <Icon name={icon} size={24} class="text-neutral-content" />
+                                    )}
                                     {name}
                                 </NavLink>
                             </li>
@@ -34,8 +36,14 @@ const show = !permission || permission == currPermission
                     </ul>
                 </details>
             ) : (
-                <NavLink href={url} class="[&>.active]:bg-primary">
-                    {icon && <Icon name={icon} size={24} class="text-primary" />}
+                <NavLink href={url}>
+                    {icon && (
+                        <Icon
+                            name={icon}
+                            size={24}
+                            class="text-neutral-content group-[.active]:text-primary"
+                        />
+                    )}
                     {name}
                 </NavLink>
             )}

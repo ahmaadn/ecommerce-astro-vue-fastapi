@@ -13,11 +13,10 @@ const { permission } = Astro.props
 <aside
     class="flex min-h-screen w-80 flex-col overflow-y-auto border-r border-base-200 bg-neutral text-neutral-content"
 >
-    <a class="group sticky top-0 inline-flex items-center gap-2 p-4 text-xl font-semibold" href="/">
+    <div class="group sticky top-0 inline-flex items-center gap-2 px-6 pt-4 text-xl font-semibold">
         <Icon name="mdi:shop" size={32} class="text-primary" />
         Online Shop
-    </a>
-    <div class="divider m-0 before:bg-neutral-content after:bg-neutral-content"></div>
+    </div>
     <ul class="menu">
         {items.map((item) => <SidebarItem currPermission={permission} {...item} />)}
     </ul>

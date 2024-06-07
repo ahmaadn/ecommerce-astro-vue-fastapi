@@ -9,9 +9,9 @@ interface Props extends HTMLAttributes<'a'> {
 const { href, class: className = '', ...props } = Astro.props
 const active = !href
     ? false
-    : Astro.url.pathname === href || (href !== '/dashboard' && Astro.url.pathname.startsWith(href))
+    : Astro.url.pathname === href || (href !== '/' && Astro.url.pathname.startsWith(href))
 ---
 
-<a href={href} class:list={[{ active: active }, className]} aria-current={active} {...props}>
+<a href={href} class:list={[{ active: active }, className, 'group']} aria-current={active} {...props}>
     <slot />
 </a>

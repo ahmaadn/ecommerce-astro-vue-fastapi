@@ -1,5 +1,10 @@
 [
     {
+        "name": "Home",
+        "url": "/",
+        "icon": "mdi:home"
+    },
+    {
         "name": "Users",
         "url": "/dashboard/users",
         "permission": "admin",
