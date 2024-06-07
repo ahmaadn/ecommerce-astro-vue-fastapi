@@ -2,7 +2,7 @@
 import type { CartDetailRespones } from '@/types'
 import { auth } from '@/lib/auth'
 import axios from 'axios'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const ongkir = defineModel<Number>('ongkir')
 const cart_details = ref<CartDetailRespones[]>([])
@@ -32,7 +32,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="card h-fit max-w-sm bg-base-100">
+    <div class="card h-fit bg-base-100 md:max-w-sm">
         <div class="card-body">
             <div class="card-title pb-2">Ringkasan pesanan</div>
             <div class="grid grid-cols-3 text-sm" v-for="(cart, index) in cart_details">

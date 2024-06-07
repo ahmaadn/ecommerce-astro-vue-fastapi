@@ -199,7 +199,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="grid grid-cols-[1fr_40%] gap-4 py-8">
+    <div class="flex grid-cols-[1fr_40%] flex-col-reverse gap-4 py-8 md:grid">
         <div class="card h-fit bg-base-100">
             <form class="card-body" @submit="handleSubmit">
                 <div class="card-title">Tagihan</div>
