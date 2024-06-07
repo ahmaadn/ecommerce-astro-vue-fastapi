@@ -12,6 +12,11 @@ const active = !href
     : Astro.url.pathname === href || (href !== '/' && Astro.url.pathname.startsWith(href))
 ---
 
-<a href={href} class:list={[{ active: active }, className, 'group']} aria-current={active} {...props}>
+<a
+    href={href}
+    class:list={[{ active: active }, className, 'group']}
+    aria-current={active}
+    {...props}
+>
     <slot />
 </a>

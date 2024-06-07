@@ -27,7 +27,12 @@ const show = !permission || permission == currPermission
                             <li>
                                 <NavLink href={url}>
                                     {icon && (
-                                        <Icon name={icon} size={24} class="text-neutral-content" />
+                                        <Icon
+                                            name={icon}
+                                            size={24}
+                                            class="text-neutral-content"
+                                            class="text-neutral-content group-[.active]:text-primary"
+                                        />
                                     )}
                                     {name}
                                 </NavLink>
