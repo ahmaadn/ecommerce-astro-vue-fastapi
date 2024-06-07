@@ -6,7 +6,7 @@ import Products from '@/components/Products/Products.astro'
 const products = await getProducts({ skip: 0, limit: 10 })
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Online shop">
     <main class="min-h-screen w-full">
         <div class="container">
             <Products products={products} />
