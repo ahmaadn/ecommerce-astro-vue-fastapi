@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { auth } from '@/lib/auth'
-import { rupiah } from '@/lib/utils'
+import { rupiah, tanggal } from '@/lib/utils'
 import axios from 'axios'
 import { onMounted, ref, defineProps } from 'vue'
 import type { Header, Item, ClickRowArgument } from 'vue3-easy-data-table'
@@ -67,6 +67,9 @@ onMounted(async () => {
 
 <template>
     <EasyDataTable :headers="headers" :items="items" @click-row="showRow">
+        <template #item-dibuat_at="{dibuat_at}">
+            {{ tanggal(new Date(dibuat_at + "Z")) }}
+        </template>
         <template #item-total_harga="{ total_harga }">
             {{ rupiah(total_harga) }}
         </template>

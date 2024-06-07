@@ -8,3 +8,10 @@ export function cn(...inputs: ClassValue[]) {
 export function rupiah(value: number) {
     return Intl.NumberFormat('id', { currency: 'IDR', style: 'currency' }).format(value)
 }
+
+export function tanggal(value: Date) {
+    return Intl.DateTimeFormat('ID', {
+        dateStyle: 'full',
+        timeZone: 'Asia/Jakarta',
+    }).format(value)
+}

@@ -2,7 +2,7 @@
 import { auth } from '@/lib/auth'
 import { onMounted, ref, defineProps } from 'vue'
 import type { Header, Item, ClickRowArgument } from 'vue3-easy-data-table'
-import { rupiah } from '@/lib/utils'
+import { rupiah, tanggal } from '@/lib/utils'
 import axios from 'axios'
 const props = defineProps({
     permission: {
@@ -17,7 +17,7 @@ const headers: Header[] = [
     { text: 'Total Dibayar', value: 'total_dibayar' },
     { text: 'Status', value: 'status_bayar' },
     { text: 'dibuat', value: 'dibuat_at' },
-    { text: 'dibayar', value: 'dibuat_at' },
+    { text: 'dibayar', value: 'dibayar_at' },
 ]
 const items = ref<Item[]>([])
 
@@ -42,6 +42,12 @@ onMounted(async () => {
 
 <template>
     <EasyDataTable :headers="headers" :items="items">
+        <template #item-dibuat_at="{dibuat_at}">
+            {{ tanggal(new Date(dibuat_at + "Z")) }}
+        </template>
+        <template #item-dibayar_at="{dibayar_at}">
+            {{ tanggal(new Date(dibayar_at + "Z")) }}
+        </template>
         <template #item-total_dibayar="{ total_dibayar }">
             {{ rupiah(total_dibayar) }}
         </template>

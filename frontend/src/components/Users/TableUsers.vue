@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 import type { Header, Item } from 'vue3-easy-data-table'
+import { tanggal } from '@/lib/utils'
 
 const headers: Header[] = [
     { text: 'username', value: 'username' },
@@ -53,10 +54,10 @@ onMounted(async () => {
             />
         </template>
         <template #item-dibuat_at="{ dibuat_at }">
-            {{ new Date(dibuat_at + 'Z').toLocaleDateString('id-ID') }}
+            {{ tanggal(new Date(dibuat_at + 'Z')) }}
         </template>
         <template #item-diupdate_at="{ diupdate_at }">
-            {{ new Date(diupdate_at + 'Z').toLocaleDateString('id-ID') }}
+            {{ tanggal(new Date(diupdate_at + 'Z')) }}
         </template>
         <template #item-role="{ role }">
             <div

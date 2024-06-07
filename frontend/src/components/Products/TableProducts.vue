@@ -2,6 +2,7 @@
 import { ref, watch, onMounted } from 'vue'
 import { getAllProducts } from '@/lib/products'
 import type { Header, Item, ServerOptions } from 'vue3-easy-data-table'
+import { tanggal } from '@/lib/utils'
 
 const pathImg = import.meta.env.PUBLIC_BACKEND_API
 const optionsServer = ref<ServerOptions>({
@@ -87,10 +88,10 @@ watch(
             </div>
         </template>
         <template #item-dibuat_at="{ dibuat_at }">
-            {{ new Date(dibuat_at + 'Z').toLocaleDateString('id-ID') }}
+            {{ tanggal(new Date(dibuat_at + 'Z')) }}
         </template>
         <template #item-diupdate_at="{ diupdate_at }">
-            {{ new Date(diupdate_at + 'Z').toLocaleDateString('id-ID') }}
+            {{ tanggal(new Date(diupdate_at + 'Z')) }}
         </template>
 
         <template #item-status="{ status }">
