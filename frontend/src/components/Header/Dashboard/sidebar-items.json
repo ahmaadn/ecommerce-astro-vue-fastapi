@@ -1,5 +1,4 @@
 [
-    { "name": "Dashboard", "url": "/dashboard", "icon": "mdi:rhombus-split-outline" },
     {
         "name": "Users",
         "url": "/dashboard/users",
