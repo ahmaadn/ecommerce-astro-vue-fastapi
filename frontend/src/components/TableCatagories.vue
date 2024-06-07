@@ -107,28 +107,16 @@ const onUpdate = async (values: String) => {
 </script>
 
 <template>
-    <div class="card bg-base-100">
-        <div class="card-body">
-            <h2 class="card-title">Kategori</h2>
-            <div>Klik baris untuk hapus atau update</div>
-            <EasyDataTable :headers="headers" :items="items" show-index @click-row="showRow">
-            </EasyDataTable>
-            <form @submit="handleSubmit">
-                <div class="inline-flex w-full gap-2">
-                    <Input name="nama_kategori" label="Nama kategory" />
-                </div>
-                <div class="grid w-full grid-cols-2 gap-2" v-if="selectedkategory">
-                    <button type="button" id="close" class="btn btn-sm" @click="onCancel">
-                        Batalkan
-                    </button>
-                    <button type="submit" id="simpan" class="btn btn-info btn-sm">
-                        Perbaharui
-                    </button>
-                </div>
-                <button type="submit" class="btn btn-success btn-sm w-full" v-else>
-                    Add variant
-                </button>
-            </form>
+    <EasyDataTable :headers="headers" :items="items" show-index @click-row="showRow">
+    </EasyDataTable>
+    <form @submit="handleSubmit">
+        <div class="inline-flex w-full gap-2">
+            <Input name="nama_kategori" label="Nama kategory" />
         </div>
-    </div>
+        <div class="grid w-full grid-cols-2 gap-2" v-if="selectedkategory">
+            <button type="button" id="close" class="btn btn-sm" @click="onCancel">Batalkan</button>
+            <button type="submit" id="simpan" class="btn btn-info btn-sm">Perbaharui</button>
+        </div>
+        <button type="submit" class="btn btn-success btn-sm w-full" v-else>Add variant</button>
+    </form>
 </template>

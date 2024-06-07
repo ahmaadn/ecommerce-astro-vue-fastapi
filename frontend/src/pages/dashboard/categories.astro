@@ -1,8 +1,15 @@
 ---
 import TableCatagories from '@/components/TableCatagories.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.astro'
+import '@/styles/tables.css'
 ---
 
 <DashboardLayout title="Categories" accessPage="admin">
-    <TableCatagories client:load />
+    <div class="card bg-base-100">
+        <div class="card-body">
+            <h2 class="card-title">Kategori</h2>
+            <div>Klik baris untuk update</div>
+            <TableCatagories client:load />
+        </div>
+    </div>
 </DashboardLayout>
