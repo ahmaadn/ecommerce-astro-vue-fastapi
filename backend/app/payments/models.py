@@ -11,6 +11,7 @@ class Pembayaran(Base):
 
     pembayaran_id = Column(String(255), primary_key=True, unique=True)
     pesanan_id = Column(Integer, ForeignKey("pesanan.pesanan_id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("user.user_id"))
     total_dibayar = Column(Integer, nullable=False)
     status_bayar = Column(Enum(PaymentStatus), nullable=False, default=PaymentStatus.PENDING)
 
@@ -18,3 +19,4 @@ class Pembayaran(Base):
     dibayar_at = Column(DateTime)
 
     pesanan = Relationship("Pesanan", backref="pembayaran")
+    user = Relationship("User", backref="pembayaran")

@@ -1,10 +1,7 @@
-use online_shop_tb;
-
-
 INSERT INTO kategori (nama_kategori) VALUES
     ('baju'),
     ('celana'),
     ('kaos'),
+    ('dress'),
+    ('gamis'),
     ('kameja');
-
-SELECT * FROM kategori;

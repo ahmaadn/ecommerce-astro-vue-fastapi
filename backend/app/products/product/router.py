@@ -1,7 +1,9 @@
 from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
-from fastapi_pagination import Page, paginate
+from fastapi_pagination import Page
+from fastapi_pagination.ext.sqlalchemy import paginate
+from sqlalchemy import select
 
 from app.auth.dependencies import get_current_active_admin
 from app.category.models import Kategori
@@ -43,14 +45,14 @@ async def get_all_barang(
     sort_by: Literal["barang_id", "nama_barang", "harga"] = "nama_barang",
     sort_type: Literal["asc", "desc"] = "asc",
 ):
-    query = db.query(Barang)
+    query = select(Barang)
     if sort_by and sort_type:
         order_by = getattr(getattr(Barang, sort_by), sort_type)()
         query = query.order_by(order_by)
 
     if q != "all":
         query = query.where(Barang.status == q)
-    return paginate(query.all())
+    return paginate(db, query)
 
 
 @r.get(

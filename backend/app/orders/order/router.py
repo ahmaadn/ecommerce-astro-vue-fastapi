@@ -85,6 +85,7 @@ def checkout(db: DependsDB, user: is_user_active):
     pembayaran_db = Pembayaran(
         pembayaran_id=f"pay-{uuid4().hex}",
         pesanan_id=pesanan_db.pesanan_id,
+        user_id=user.user_id,
         total_dibayar=total_harga,
         status_bayar=PaymentStatus.COMPLETED,
         dibayar_at=func.now(),
