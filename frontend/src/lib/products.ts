@@ -23,7 +23,6 @@ export const getProductByID = async (id: number) => {
         }
         return null
     } catch (e) {
-        console.error(e)
         return null
     }
 }

@@ -30,10 +30,7 @@ const cartHref = auth.isLogin(Astro) ? '/dashboard/wishlist' : '/signin'
                     class="btn btn-circle btn-ghost drawer-button no-animation hover:bg-transparent"
                     href={cartHref}
                 >
-                    <div class="indicator">
-                        <Icon name="mdi:cart-outline" size={20} />
-                        <span class="badge indicator-item badge-primary badge-sm">8</span>
-                    </div>
+                    <Icon name="mdi:cart-outline" size={20} />
                 </a>
                 <!-- <Cart /> -->
             </div>
