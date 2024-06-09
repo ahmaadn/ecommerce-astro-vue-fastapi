@@ -27,6 +27,7 @@ const headers: Header[] = [
     { text: 'dibuat', value: 'dibuat_at' },
     { text: 'dibayar', value: 'dibayar_at' },
 ]
+
 const items = ref<Item[]>([])
 
 const getHistoriPembayaran = async () => {
@@ -52,14 +53,7 @@ const getHistoriPembayaran = async () => {
         })
 }
 
-watch(
-    optionsServer,
-    async () => {
-        await getHistoriPembayaran()
-    },
-    { deep: true }
-)
-
+watch(optionsServer, getHistoriPembayaran)
 onMounted(getHistoriPembayaran)
 </script>
 

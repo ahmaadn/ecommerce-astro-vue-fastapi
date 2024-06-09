@@ -7,21 +7,29 @@ import { auth } from '@/lib/auth'
 import '@/styles/tables.css'
 
 const currPermission = auth.payLoad(Astro)?.permission
+const isAdmin = currPermission == 'admin'
 ---
 
 <DashboardLayout title="History Pembayaran">
     <div class="card bg-base-100 shadow-xl">
         <div class="card-body">
-            <div class="card-title justify-between">
-                Histori Transaksi
-                <div>
-                    <ButtonExport
-                        client:load
-                        url="/payments/export"
-                        filename="payment report.xlsl"
-                    />
-                </div>
-            </div>
+            {
+                isAdmin ? (
+                    <div class="card-title justify-between">
+                        Histori Transaksi
+                        <div>
+                            <ButtonExport
+                                client:load
+                                url="/payments/export"
+                                filename="payment report.xlsl"
+                            />
+                        </div>
+                    </div>
+                ) : (
+                    <div class="card-title">Histori Transaksi</div>
+                )
+            }
+
             <TableTransaction client:load permission={currPermission} />
         </div>
     </div>
