@@ -38,14 +38,12 @@ const onSumbit = form.handleSubmit(async (values) => {
             },
         })
         .then((res) => {
-            if (res.status >= 200 && res.status <= 300) {
-                alert(res.data.detail)
-                if (values.username != props.user.username) {
-                    auth.logOut()
-                    window.location.href = `/signin`
-                } else {
-                    window.location.href = `/dashboard/users/details?username=${props.user.username}`
-                }
+            alert(res.data.detail)
+            if (values.username != props.user.username) {
+                auth.logOut()
+                window.location.href = `/signin`
+            } else {
+                window.location.href = `/dashboard/users/details?username=${props.user.username}`
             }
         })
         .catch((e) => {

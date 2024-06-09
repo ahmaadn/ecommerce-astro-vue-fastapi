@@ -19,4 +19,19 @@ export const users = {
             console.error(e)
         }
     },
+    getAllUsers: async (values: { page: number; size: number }, Astro?: AstroGlobal) => {
+        try {
+            const respones = await axios.get(`${import.meta.env.PUBLIC_BACKEND_API}/users`, {
+                params: values,
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...auth.authorize().httpOptions.headers,
+                },
+            })
+            const data = respones.data
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
 }

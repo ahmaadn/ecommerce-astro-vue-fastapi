@@ -59,7 +59,7 @@ onMounted(() => {
     <form @submit="onSumbit">
         <div class="flex items-center justify-between pb-4">
             <div class="inline-flex items-center gap-2 font-semibold">
-                <a href="/dashboard" class="btn btn-square">
+                <a href="/dashboard/orders" class="btn btn-square">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
