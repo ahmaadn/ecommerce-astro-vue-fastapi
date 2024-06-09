@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-import * as FileDownload from 'js-file-download'
 import { auth } from '@/lib/auth'
 
 const disabled = ref(false)
