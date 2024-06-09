@@ -17,12 +17,12 @@ const isLogin = auth.isLogin(Astro)
 if (!isLogin) {
     auth.logOut(Astro)
 }
-const currPermission = isLogin ? auth.payLoad(Astro).permission : 'none'
+const currPermission = auth.payLoad(Astro)?.permission
 const show = (accessPage == 'all' || accessPage == currPermission) && isLogin
 ---
 
 {
-    currPermission != 'none' ? (
+    currPermission ? (
         <BaseLayout class="bg-base-200" {...Astro.props}>
             <main>
                 <Header>

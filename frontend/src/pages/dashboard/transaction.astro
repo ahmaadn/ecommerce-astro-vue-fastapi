@@ -6,7 +6,7 @@ import ButtonExport from '@/components/transaction/ButtonExport.vue'
 import { auth } from '@/lib/auth'
 import '@/styles/tables.css'
 
-const currPermission = auth.payLoad(Astro).permission
+const currPermission = auth.payLoad(Astro)?.permission
 ---
 
 <DashboardLayout title="History Pembayaran">

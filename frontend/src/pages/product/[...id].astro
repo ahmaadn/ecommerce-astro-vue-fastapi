@@ -16,13 +16,13 @@ if (!id) {
 }
 
 const product = await getProductByID(Number(id))
-if (!product || (auth.payLoad(Astro).permission == 'user' && product.status == 'draft')) {
+if (!product || (auth.payLoad(Astro)?.permission == 'user' && product.status == 'draft')) {
     return new Response(null, {
         status: 404,
         statusText: 'product not found',
     })
 }
-const isAdmin = auth.payLoad(Astro).permission == 'admin'
+const isAdmin = auth.payLoad(Astro)?.permission == 'admin'
 const imagePath = `${import.meta.env.PUBLIC_BACKEND_API}/${product.file_gambar}`
 const { kategori, list_varian } = product
 ---

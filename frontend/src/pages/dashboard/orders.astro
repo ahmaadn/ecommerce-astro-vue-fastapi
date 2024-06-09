@@ -3,7 +3,7 @@ import DashboardLayout from '@/layouts/DashboardLayout.astro'
 import OrdersListUser from '@/components/Orders/OrdersListUser.vue'
 import { auth } from '@/lib/auth'
 import '@/styles/tables.css'
-const currPermission = auth.payLoad(Astro).permission
+const currPermission = auth.payLoad(Astro)?.permission
 ---
 
 <DashboardLayout title="Orders">
