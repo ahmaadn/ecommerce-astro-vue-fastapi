@@ -28,9 +28,7 @@ const getKeranjang = async () => {
         })
 }
 
-onMounted(async () => {
-    await getKeranjang()
-})
+onMounted(getKeranjang)
 
 const deleteKeranjang = async (value: Number) => {
     await axios

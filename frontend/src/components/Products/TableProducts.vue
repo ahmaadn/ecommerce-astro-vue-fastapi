@@ -45,17 +45,8 @@ const loadProducts = async () => {
         })
 }
 
-onMounted(async () => {
-    await loadProducts()
-})
-
-watch(
-    optionsServer,
-    async (value) => {
-        await loadProducts()
-    },
-    { deep: true }
-)
+watch(optionsServer, loadProducts)
+onMounted(loadProducts)
 </script>
 <template>
     <EasyDataTable
@@ -64,7 +55,7 @@ watch(
         :headers="headers"
         :items="items"
         :loading="loading"
-        :rows-items="[1, 5, 25, 50]"
+        :rows-items="[25, 50, 100]"
     >
         <template #loading>
             <img

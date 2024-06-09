@@ -60,9 +60,7 @@ watch(
     { deep: true }
 )
 
-onMounted(async () => {
-    await getHistoriPembayaran()
-})
+onMounted(getHistoriPembayaran)
 </script>
 
 <template>

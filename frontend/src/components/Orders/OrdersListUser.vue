@@ -2,8 +2,8 @@
 import { auth } from '@/lib/auth'
 import { rupiah, tanggal } from '@/lib/utils'
 import axios from 'axios'
-import { onMounted, ref, defineProps } from 'vue'
-import type { Header, Item, ClickRowArgument } from 'vue3-easy-data-table'
+import { onMounted, ref, defineProps, watch } from 'vue'
+import type { Header, Item, ClickRowArgument, ServerOptions } from 'vue3-easy-data-table'
 import type { PesananRespones } from '@/types'
 
 const props = defineProps({
@@ -11,7 +11,14 @@ const props = defineProps({
         type: String,
     },
 })
+
 const permission = ref(props.permission)
+const serverItemsLength = ref(0)
+const optionsServer = ref<ServerOptions>({
+    page: 1,
+    rowsPerPage: 25,
+})
+
 const selectedPesanan = ref<PesananRespones>()
 const headers: Header[] = [
     { text: 'ID Pesanan', value: 'pesanan_id' },
@@ -23,10 +30,18 @@ const headers: Header[] = [
 const items = ref<Item[]>([])
 
 const getPesanan = async () => {
+    const options = optionsServer.value
     await axios
-        .get(`${import.meta.env.PUBLIC_BACKEND_API}/orders`, { ...auth.authorize().httpOptions })
+        .get(`${import.meta.env.PUBLIC_BACKEND_API}/orders`, {
+            params: {
+                page: options.page,
+                size: options.rowsPerPage,
+            },
+            ...auth.authorize().httpOptions,
+        })
         .then((res) => {
             items.value = res.data.items
+            serverItemsLength.value = res.data.total
         })
 }
 
@@ -60,13 +75,19 @@ const onClickBtn = async (value: String) => {
         })
 }
 
-onMounted(async () => {
-    await getPesanan()
-})
+watch(optionsServer, getPesanan)
+onMounted(getPesanan)
 </script>
 
 <template>
-    <EasyDataTable :headers="headers" :items="items" @click-row="showRow">
+    <EasyDataTable
+        v-model:server-options="optionsServer"
+        :server-items-length="serverItemsLength"
+        :headers="headers"
+        :items="items"
+        :rows-items="[25, 50, 100]"
+        @click-row="showRow"
+    >
         <template #item-dibuat_at="{ dibuat_at }">
             {{ tanggal(new Date(dibuat_at + 'Z')) }}
         </template>

@@ -69,9 +69,7 @@ const showRow = (item: ClickRowArgument) => {
     form.setValues({ ...item })
 }
 
-onMounted(async () => {
-    await getOngkirByProvinsi()
-})
+onMounted(getOngkirByProvinsi)
 </script>
 
 <template>

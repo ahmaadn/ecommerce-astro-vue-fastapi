@@ -26,9 +26,7 @@ const getKeranjang = async () => {
         })
 }
 
-onMounted(async () => {
-    await getKeranjang()
-})
+onMounted(getKeranjang)
 </script>
 
 <template>
