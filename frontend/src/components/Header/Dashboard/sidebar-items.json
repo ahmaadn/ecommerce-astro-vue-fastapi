@@ -37,5 +37,5 @@
         "url": "/dashboard/profile",
         "icon": "mdi:account-circle-outline"
     },
-    { "name": "Histori Transaksi", "url": "/dashboard/transaction", "icon": "mdi:local-shipping" }
+    { "name": "Histori Transaksi", "url": "/dashboard/transaction", "icon": "mdi:money" }
 ]

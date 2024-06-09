@@ -1,11 +1,11 @@
 ---
-// import Cart from '../Cart/Cart.astro'
 import { Icon } from 'astro-icon/components'
 import MenuNav from './MenuNavbar.astro'
 import BaseNavbar from './BaseNavbar.astro'
 import { auth } from '@/lib/auth'
 
-const cartHref = auth.isLogin(Astro) ? '/dashboard/wishlist' : '/signin'
+const cartHref = auth.isLogin(Astro) ? '/dashboard/cart' : '/signin'
+const isUser = auth.isLogin(Astro) && auth.payLoad(Astro)?.permission == 'user'
 ---
 
 <div class="drawer">
@@ -25,15 +25,18 @@ const cartHref = auth.isLogin(Astro) ? '/dashboard/wishlist' : '/signin'
             <div class="hidden flex-none lg:block">
                 <MenuNav />
             </div>
-            <div class="flex-none">
-                <a
-                    class="btn btn-circle btn-ghost drawer-button no-animation hover:bg-transparent"
-                    href={cartHref}
-                >
-                    <Icon name="mdi:cart-outline" size={20} />
-                </a>
-                <!-- <Cart /> -->
-            </div>
+            {
+                isUser && (
+                    <div class="flex-none">
+                        <a
+                            class="btn btn-circle btn-ghost drawer-button no-animation hover:bg-transparent"
+                            href={cartHref}
+                        >
+                            <Icon name="mdi:cart-outline" size={20} />
+                        </a>
+                    </div>
+                )
+            }
         </BaseNavbar>
         <div class="main">
             <!-- CONTENT -->

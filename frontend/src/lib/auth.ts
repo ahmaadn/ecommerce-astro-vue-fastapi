@@ -81,6 +81,9 @@ const auth = {
     },
     payLoad: (Astro?: AstroGlobal) => {
         const token = Astro ? Astro.cookies.get('accessToken')?.value : Cookies.get('accessToken')
+        if (!token) {
+            return
+        }
         const decodeJwt = jwtDecode<JwtPayLoad>(token)
         return decodeJwt
     },
