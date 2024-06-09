@@ -12,7 +12,10 @@ const imagePath = `${import.meta.env.PUBLIC_BACKEND_API}/${product.file_gambar}`
 
 <a
     href=`/product/${product.barang_id}`
-    class="group card card-compact w-full border border-base-200 bg-base-100 shadow-lg"
+    class:list={[
+        'group card card-compact w-full border border-base-200 bg-base-100 shadow-lg',
+        { 'border-warning': product.status == 'draft' },
+    ]}
 >
     <figure class="relative min-h-96 lg:h-96">
         <img
@@ -20,6 +23,11 @@ const imagePath = `${import.meta.env.PUBLIC_BACKEND_API}/${product.file_gambar}`
             alt={product.nama_barang}
             class="transision-transform scale-100 object-cover object-center duration-300 group-hover:scale-110 lg:h-full lg:w-full"
         />
+        {
+            product.status == 'draft' && (
+                <span class="badge badge-warning absolute left-0 top-0 rounded-none">draft</span>
+            )
+        }
         <div
             class="absolute bottom-0 left-0 right-0 h-full w-full transition-colors duration-300 group-hover:bg-neutral/10"
         >

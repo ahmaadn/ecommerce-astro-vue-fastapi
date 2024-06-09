@@ -87,7 +87,7 @@ watch(
                 </div>
             </div>
         </template>
-        <template #item-harga="{harga}">
+        <template #item-harga="{ harga }">
             {{ rupiah(harga) }}
         </template>
         <template #item-dibuat_at="{ dibuat_at }">

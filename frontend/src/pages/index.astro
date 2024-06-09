@@ -1,15 +1,33 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { getProducts } from '@/lib/products'
-import Products from '@/components/Products/Products.astro'
+import ProductCard from '@/components/Products/ProductCard.astro'
+import { getAllProducts, getProducts } from '@/lib/products'
+import { auth } from '@/lib/auth'
+import type { ProductResult } from '@/types'
 
-const products = await getProducts({ skip: 0, limit: 10 })
+const isAdmin = auth.payLoad(Astro).permission == 'admin'
+const products: ProductResult[] = []
+if (!isAdmin) {
+    products.push(...(await getProducts({ skip: 0, limit: 50 })))
+} else {
+    await getAllProducts({}, Astro)
+        .then((res) => {
+            products.push(...res.data.items)
+        })
+        .catch((e) => {
+            console.error(e)
+        })
+}
 ---
 
 <Layout title="Online shop">
     <main class="min-h-screen w-full">
         <div class="container">
-            <Products products={products} />
+            <div
+                class="flex flex-col items-center gap-8 py-12 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-12"
+            >
+                {products.map((product) => <ProductCard product={product} />)}
+            </div>
         </div>
     </main>
 </Layout>
