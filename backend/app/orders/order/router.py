@@ -1,6 +1,7 @@
 from uuid import uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import FileResponse
 from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlalchemy import paginate
 from sqlalchemy import func, select
@@ -18,6 +19,7 @@ from ..order_detail.models import DetailPesanan
 from .enums import StatusOrder
 from .models import Pesanan
 from .schemas import PesananRespones
+from .services import export_to_xlsx
 
 router = r = APIRouter(
     prefix="/orders", dependencies=[Depends(get_current_active_user)], tags=["orders"]
@@ -142,3 +144,10 @@ async def completed_order(db: DependsDB, user: is_user_active, pesanan_id: int):
     db.commit()
     db.refresh(pesanan_db)
     return {"detail": "Pesanan diselesaikan"}
+
+
+@r.get("/export", status_code=status.HTTP_200_OK, dependencies=[Depends(get_current_active_admin)])
+async def report_pesanan(db: DependsDB):
+    filename = await export_to_xlsx(db)
+    headers = {"Content-Disposition": 'attachment; filename="orders.xlsx"'}
+    return FileResponse(f"static/downloads/{filename}", headers=headers)

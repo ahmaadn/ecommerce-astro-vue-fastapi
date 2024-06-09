@@ -1,14 +1,15 @@
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, defineProps } from 'vue'
 import axios from 'axios'
 import { auth } from '@/lib/auth'
 
 const disabled = ref(false)
+const props = defineProps({ url: String, filename: String })
 
 const onClick = async () => {
     disabled.value = true
     axios({
-        url: `${import.meta.env.PUBLIC_BACKEND_API}/payments/export`,
+        url: `${import.meta.env.PUBLIC_BACKEND_API}${props.url}`,
         method: 'GET',
         responseType: 'blob',
         headers: {
@@ -16,10 +17,10 @@ const onClick = async () => {
         },
     })
         .then((res) => {
-            const url = window.URL.createObjectURL(new Blob([res]))
+            const url = window.URL.createObjectURL(new Blob([res.data]))
             const a = document.createElement('a')
             a.href = url
-            const filename = `payment.xlsx`
+            const filename = props.filename || 'untitled.xlsx'
             a.setAttribute('download', filename)
             document.body.appendChild(a)
             a.click()
