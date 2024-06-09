@@ -1,9 +1,10 @@
 ---
-import Breadcrumb from '@/components/Breadcrumb.astro'
-import ProductDisplay from '@/components/Products/ProductDisplay.astro'
+import ChoiceVarintProduct from '@/components/Products/ChoiceVarintProduct.vue'
 import Layout from '@/layouts/Layout.astro'
+import Breadcrumb from '@/components/Breadcrumb.astro'
 import { auth } from '@/lib/auth'
 import { getProductByID } from '@/lib/products'
+import { rupiah } from '@/lib/utils'
 
 const { id } = Astro.params
 
@@ -21,11 +22,36 @@ if (!product || (auth.payLoad(Astro).permission == 'user' && product.status == '
         statusText: 'product not found',
     })
 }
+const isAdmin = auth.payLoad(Astro).permission == 'admin'
+const imagePath = `${import.meta.env.PUBLIC_BACKEND_API}/${product.file_gambar}`
+const { kategori, list_varian } = product
 ---
 
 <Layout title="adada">
-    <main class="container">
-        <Breadcrumb class="py-6" />
-        <ProductDisplay product={product} />
+    <main class="container pt-8">
+        <Breadcrumb productName={product.nama_barang} />
+        <div class="flex grid-cols-2 flex-col gap-12 lg:grid">
+            <figure>
+                <img class="overflow-hidden rounded-xl" src={imagePath} alt={product.nama_barang} />
+            </figure>
+            <div class="space-y-4">
+                <h2 class="text-4xl font-bold">{product.nama_barang}</h2>
+                <p class="text-2xl font-semibold text-secondary">{rupiah(product.harga)}</p>
+                <a href=`/${kategori.kategori_id}` class="badge badge-primary"
+                    >{kategori.nama_kategori}</a
+                >
+                <p>
+                    {product.deskripsi}
+                </p>
+                <div>
+                    <ChoiceVarintProduct
+                        isAdmin={isAdmin}
+                        barang_id={product.barang_id}
+                        variants={list_varian}
+                        client:load
+                    />
+                </div>
+            </div>
+        </div>
     </main>
 </Layout>

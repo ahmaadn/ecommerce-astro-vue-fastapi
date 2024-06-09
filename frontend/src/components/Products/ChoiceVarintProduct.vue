@@ -5,6 +5,7 @@ import axios from 'axios'
 import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
+    isAdmin: Boolean
     barang_id: Number
     variants: ProductVariantType[]
 }>()
@@ -78,7 +79,7 @@ onMounted(() => {
                     v-bind:key="index"
                     type="radio"
                     name="size"
-                    class="btn btn-sm w-8 min-w-8"
+                    class="btn btn-sm"
                     :value="varian.varian_barang_id.toString()"
                     :aria-label="varian.ukuran"
                     v-model="variant_id_choice"
@@ -86,7 +87,16 @@ onMounted(() => {
                 />
             </div>
         </fieldset>
+        <div v-if="disabled" class="text-sm text-error">Stok barang habis</div>
+        <a
+            v-if="isAdmin"
+            :href="`/dashboard/products/details?product=${barang_id}`"
+            type="button"
+            class="btn btn-secondary w-full"
+            >Edit Barang</a
+        >
         <button
+            v-else
             type="submit"
             class="btn btn-secondary w-full"
             :disabled="disabled"
