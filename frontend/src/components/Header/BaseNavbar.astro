@@ -21,17 +21,15 @@ const { class: className = '' } = Astro.props
 </div>
 
 <script>
-    document.addEventListener('astro:page-load', () => {
-        const navbar = document.querySelector<HTMLElement>('#navbar')
-        if (navbar) {
-            let offset = navbar.offsetHeight
-            window.onscroll = function () {
-                if (window.scrollY > offset - 10) {
-                    navbar.classList.add('shadow-sm')
-                } else if (window.scrollY < offset - 20) {
-                    navbar.classList.remove('shadow-sm')
-                }
+    const navbar = document.querySelector<HTMLElement>('#navbar')
+    if (navbar) {
+        let offset = navbar.offsetHeight
+        window.onscroll = function () {
+            if (window.scrollY > offset - 10) {
+                navbar.classList.add('shadow-sm')
+            } else if (window.scrollY < offset - 20) {
+                navbar.classList.remove('shadow-sm')
             }
         }
-    })
+    }
 </script>

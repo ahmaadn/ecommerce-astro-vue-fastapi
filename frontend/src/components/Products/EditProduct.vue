@@ -11,11 +11,13 @@ import TableVarianForm from './DetailProduct/TableVarianForm.vue'
 import ImageUpload from './DetailProduct/ImageUpload.vue'
 import axios from 'axios'
 import { auth } from '@/lib/auth'
+import { useToast } from '@/components/ui/toast/use-toast'
 
 const props = defineProps<{
     product: ProductDetailResult
 }>()
 
+const { toast } = useToast()
 const product = props.product
 
 const validationSchema = toTypedSchema(
@@ -43,12 +45,18 @@ const onSumbit = form.handleSubmit(async (values) => {
         })
         .then((res) => {
             const detail = res.data.detail
-            alert(detail)
-            window.location.href = `/dashboard/products/details?product=${product.barang_id}`
+            toast({
+                title: 'Update berhasil',
+                description: detail,
+            })
         })
         .catch((e) => {
             if (e.response) {
-                alert(e.response.data.detail)
+                toast({
+                    title: 'Error',
+                    description: e.response.data.detail,
+                    variant: 'error',
+                })
             } else {
                 console.error(e)
             }
