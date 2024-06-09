@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse } from 'axios'
-import type { ProductResult, ProductDetailResult, PageResultItems } from '@/types'
+import type { ProductResult, ProductDetailResult } from '@/types'
 import { auth } from './auth'
 import type { AstroGlobal } from 'astro'
 

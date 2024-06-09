@@ -2,6 +2,7 @@
 import Breadcrumb from '@/components/Breadcrumb.astro'
 import ProductDisplay from '@/components/Products/ProductDisplay.astro'
 import Layout from '@/layouts/Layout.astro'
+import { auth } from '@/lib/auth'
 import { getProductByID } from '@/lib/products'
 
 const { id } = Astro.params
@@ -14,7 +15,7 @@ if (!id) {
 }
 
 const product = await getProductByID(Number(id))
-if (!product) {
+if (!product || (auth.payLoad(Astro).permission == 'user' && product.status == 'draft')) {
     return new Response(null, {
         status: 404,
         statusText: 'product not found',
