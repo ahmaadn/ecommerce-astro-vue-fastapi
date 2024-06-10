@@ -14,7 +14,7 @@
     "dependencies": {
         "@astrojs/check": "^0.7.0",
         "@astrojs/tailwind": "^5.1.0",
-        "@astrojs/vue": "^4.2.0",
+        "@astrojs/vue": "^4.4.0",
         "@vee-validate/zod": "^4.12.8",
         "@vueuse/core": "^10.9.0",
         "astro": "^4.9.2",
