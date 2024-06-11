@@ -165,6 +165,6 @@ const onSubmit = form.handleSubmit((values) => {
                 <ErrorMessage name="gambar" class="text-sm text-error"></ErrorMessage>
             </div>
         </div>
-        <button type="submit" class="btn btn-success">Buat Barang</button>
+        <button type="submit" class="btn btn-success w-full">Buat Barang</button>
     </form>
 </template>

@@ -80,6 +80,6 @@ onMounted(getOngkirByProvinsi)
             <Input name="name_provinsi" label="Nama provinsi" disabled />
             <Input name="ongkir" label="Ongkir" type="number" />
         </div>
-        <button type="submit" class="btn btn-success btn-sm w-full">Perbahari</button>
+        <button type="submit" class="btn btn-success btn-sm w-full">Perbaharui</button>
     </form>
 </template>

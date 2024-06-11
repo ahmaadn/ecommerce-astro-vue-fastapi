@@ -37,7 +37,6 @@ const deleteKeranjang = async (value: Number) => {
             headers: { ...auth.authorize().httpOptions.headers },
         })
         .then(async (res) => {
-            alert(res.data.detail)
             await getKeranjang()
         })
         .catch((e) => {
@@ -100,14 +99,14 @@ const checkout = () => {
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <div class="form-control w-full max-w-xs">
+                            <div class="form-control">
                                 <label class="label">
                                     <span class="label-text">Variant</span>
                                 </label>
                                 <input
                                     type="radio"
                                     name="size"
-                                    class="btn btn-sm w-8 min-w-8 after:text-secondary-content disabled:bg-secondary"
+                                    class="btn btn-sm after:text-secondary-content disabled:bg-secondary"
                                     disabled
                                     :value="cart.variant_barang.ukuran"
                                     :aria-label="cart.variant_barang.ukuran"
