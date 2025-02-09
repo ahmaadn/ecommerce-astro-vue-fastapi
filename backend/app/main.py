@@ -12,6 +12,7 @@ from app.category.models import *  # noqa: F403
 from app.category.router import router as category_router
 from app.config import get_settings
 from app.database import Base, engine
+from app.initial_data import initial_data as initial_data
 from app.orders.order.models import *  # noqa: F403
 from app.orders.order.router import router as order_router
 from app.orders.order_detail.models import *  # noqa: F403
@@ -67,6 +68,7 @@ app.add_middleware(
 )
 
 add_pagination(app)
+initial_data()
 
 if __name__ == "__main__":
     import uvicorn
